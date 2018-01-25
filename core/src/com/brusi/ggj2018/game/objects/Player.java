@@ -12,6 +12,7 @@ import com.brusi.ggj2018.game.Utils;
 public class Player extends DynamicGameObject implements Renderable, Updatable {
     public Player(float x, float y) {
         super(x, y, 40, 80);
+        accel.y = 0;
     }
 
     @Override
@@ -23,6 +24,5 @@ public class Player extends DynamicGameObject implements Renderable, Updatable {
     @Override
     public void render(Batch batch) {
         Utils.drawCenter(batch, Assets.get().player, position.x, position.y);
-        Assets.get();
     }
 }
