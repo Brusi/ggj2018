@@ -12,6 +12,7 @@ import com.brusi.ggj2018.game.Utils;
 public class Player extends DynamicGameObject {
     public Player(float x, float y) {
         super(x, y, 40, 80);
+        accel.y = 0;
     }
 
     public void update(float deltaTime) {
@@ -21,6 +22,5 @@ public class Player extends DynamicGameObject {
 
     public void render(Batch batch) {
         Utils.drawCenter(batch, Assets.get().player, position.x, position.y);
-        Assets.get();
     }
 }
