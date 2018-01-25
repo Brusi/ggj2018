@@ -9,16 +9,18 @@ import com.brusi.ggj2018.game.Utils;
  * Created by pc on 1/26/2018.
  */
 
-public class Player extends DynamicGameObject {
+public class Player extends DynamicGameObject implements Renderable, Updatable {
     public Player(float x, float y) {
         super(x, y, 40, 80);
     }
 
+    @Override
     public void update(float deltaTime) {
         velocity.y += accel.y * deltaTime;
         setPosition(position.x, position.y + velocity.y * deltaTime);
     }
 
+    @Override
     public void render(Batch batch) {
         Utils.drawCenter(batch, Assets.get().player, position.x, position.y);
         Assets.get();
