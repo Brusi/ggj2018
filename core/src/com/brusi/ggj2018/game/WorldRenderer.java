@@ -21,11 +21,10 @@ public class WorldRenderer {
     private Batch batch = new SpriteBatch();
     private OrthographicCamera cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 
-    private ArrayList<Renderable> objects = new ArrayList<Renderable>();
 
-    public WorldRenderer(World world) {
+
+    public WorldRenderer() {
         batch.setProjectionMatrix(cam.combined);
-        objects.add(world.player);
     }
 
     public void render(World world) {
@@ -33,7 +32,7 @@ public class WorldRenderer {
         Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         batch.begin();
-        for (Renderable object : objects) {
+        for (Renderable object : world.objectsToRender) {
             object.render(batch);
         }
         batch.end();

@@ -9,7 +9,7 @@ import com.badlogic.gdx.ScreenAdapter;
 
 public class GameScreen extends ScreenAdapter implements Screen {
     World world = new World();
-    WorldRenderer worldRenderer = new WorldRenderer(world);
+    WorldRenderer worldRenderer = new WorldRenderer();
 
     @Override
     public void render(float deltaTime) {

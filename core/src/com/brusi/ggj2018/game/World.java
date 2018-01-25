@@ -1,7 +1,7 @@
 package com.brusi.ggj2018.game;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.brusi.ggj2018.game.objects.Player;
+import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
 
 import java.util.ArrayList;
@@ -13,16 +13,29 @@ import java.util.ArrayList;
 public class World {
     protected Player player = new Player(100, 100);
 
-    protected ArrayList<Updatable> objects = new ArrayList<Updatable>();
+    protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
+    protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
 
     public World()
     {
-        objects.add(player);
+        AddObject(player);
+    }
+    
+    public void AddObject(Object object)
+    {
+        if (object instanceof Updatable)
+        {
+            objectsToUpdate.add((Updatable)object);
+        }
+        if (object instanceof Renderable)
+        {
+            objectsToRender.add((Renderable)object);
+        }
     }
 
     void update(float deltaTime)
     {
-        for (Updatable object : objects) {
+        for (Updatable object : objectsToUpdate) {
             object.update(deltaTime);
         }
     }
