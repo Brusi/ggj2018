@@ -13,7 +13,7 @@ import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.TeleportParticle;
 import com.brusi.ggj2018.game.objects.Arrow;
 import com.brusi.ggj2018.game.objects.EnemyGenerator;
-import com.brusi.ggj2018.game.objects.GameObject;
+import com.brusi.ggj2018.game.objects.Energy;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
@@ -22,11 +22,7 @@ import com.brusi.ggj2018.utils.Controls;
 import com.brusi.ggj2018.utils.EventQueue;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.Iterator;
-
-import sun.management.counter.Units;
 
 /**
  * Created by pc on 1/26/2018.
@@ -35,6 +31,7 @@ import sun.management.counter.Units;
 public class World {
     private final EnemyGenerator enemyGenerator;
     public Player player = new Player(0, 0);
+    public Energy energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
     final public PlayerTarget playerTarget = new PlayerTarget();
 
     public ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
@@ -51,11 +48,12 @@ public class World {
     public World(Controls controls)
     {
         this.controls = controls;
-        addObject(player);
         enemyGenerator = new EnemyGenerator(9, 1, 6, 2);
         addObject(enemyGenerator);
         objectsToRender.add(playerTarget);
         createPlatforms();
+        addObject(player);
+        addObject(energy);
     }
 
     private void createPlatforms()
@@ -119,8 +117,8 @@ public class World {
 
         bulletTimeEvents.update(deltaTime);
 
-        updateInput();
         deltaTime = getBulletTime(deltaTime);
+        updateInput(deltaTime);
         lockObjectCreation = true;
         updateParticles(deltaTime);
 
@@ -150,7 +148,7 @@ public class World {
             return 0.1f * deltaTime;
         }
 
-        if (controls.isTouched()) {
+        if (playerTarget.on) {
             bulletTimeRatio = (bulletTimeRatio * 0.8f + 0.2f * 0.2f);
             if (bulletTimeEvents.isEmpty()) {
                 bulletTimeEvents.addEventFromNow(0.3f, new EventQueue.Event() {
@@ -189,14 +187,25 @@ public class World {
         }
     }
 
-    private void updateInput() {
+    private boolean energyLow = false;
+
+    private void updateInput(float deltaTime) {
+        boolean startedBefore = playerTarget.on;
         playerTarget.on = false;
         if (!player.grounded || isDead()) {
             // Ignore input if player is not on the ground.
             return;
         }
         controls.update();
-        if (controls.getReleased()) {
+        if (energyLow && controls.isTouched()) {
+            return;
+        }
+        energyLow = energy.energy < Energy.ENERGY_LOW;
+        if ((energyLow && !startedBefore) || energy.empty) {
+            return;
+        }
+        energyLow = false;
+        if (controls.getReleased() && startedBefore) {
             Vector2 diff = controls.getDiff();
             if (diff.len() < 30) {
                 // Teleport is too short!
@@ -207,6 +216,7 @@ public class World {
             createTeleportParticles(player.position, 20, 1, Assets.get().teleport_particle);
         }
         if (controls.isTouched()) {
+            energy.updateTouch(deltaTime);
             Vector2 diff = controls.getDiff();
             playerTarget.on = true;
             playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
