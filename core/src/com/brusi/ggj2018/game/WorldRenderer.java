@@ -19,7 +19,7 @@ public class WorldRenderer {
     static final public float FRUSTUM_WIDTH = FRUSTUM_HEIGHT * Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
 
     private Batch batch = new SpriteBatch();
-    private OrthographicCamera cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+    public OrthographicCamera cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 
 
 
