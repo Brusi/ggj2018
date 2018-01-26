@@ -46,13 +46,14 @@ public class Enemy extends Unit {
     private void shoot(World world) {
         mirror = world.player.position.x > position.x;
         Arrow arrow = new Arrow(position.x, position.y);
-        arrow.velocity.x = Math.signum(world.player.position.x - position.x) * 300;
+        arrow.velocity.x = Math.signum(world.player.position.x - position.x) * 300 + Utils.random2Range(30);
         arrow.mirror = mirror;
         float t = Math.abs(world.player.position.x - position.x) / 300;
         float v =  t == 0 ? 0 : (world.player.position.y - position.y - t * t * (-10)/2) / t;
-        v = Math.min(v, 30);
-        v = Math.max(v, -30);
-        arrow.velocity.y = v;
+        v = Math.min(v, 50);
+        v = Math.max(v, -150);
+        arrow.velocity.y = v + Utils.random2Range(15);
+        arrow.shooter = this;
         world.addObject(arrow);
     }
 }
