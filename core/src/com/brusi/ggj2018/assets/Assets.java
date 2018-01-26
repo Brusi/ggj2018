@@ -13,6 +13,7 @@ import com.brusi.ggj2018.ggj2018;
 public class Assets {
 
     public Sprite bg;
+    public Sprite title;
 
     public Sprite player;
     public Sprite enemy;
@@ -27,6 +28,7 @@ public class Assets {
 
     public void init() {
         bg = new Sprite(new Texture("objects/bg.jpg"));
+        title = new Sprite(new Texture("objects/title.png"));
 
         TextureAtlas atlas = new TextureAtlas("objects/texture.txt");
         player = atlas.createSprite("hero");

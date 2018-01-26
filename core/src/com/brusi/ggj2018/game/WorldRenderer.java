@@ -38,4 +38,8 @@ public class WorldRenderer {
         }
         batch.end();
     }
+
+    public void dispose() {
+        batch.dispose();
+    }
 }

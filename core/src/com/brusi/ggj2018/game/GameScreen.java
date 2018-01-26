@@ -26,4 +26,9 @@ public class GameScreen extends ScreenAdapter implements Screen {
         world.update(deltaTime);
         worldRenderer.render(world);
     }
+
+    @Override
+    public void dispose() {
+        worldRenderer.dispose();
+    }
 }
