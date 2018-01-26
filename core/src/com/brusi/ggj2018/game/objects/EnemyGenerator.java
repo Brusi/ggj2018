@@ -1,5 +1,6 @@
 package com.brusi.ggj2018.game.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 
@@ -60,9 +61,11 @@ public class EnemyGenerator implements Updatable {
         int select = Utils.randomInt(5);
         Platform plat = world.platforms.get(select);
         created.targetPlatform = plat;
-        created.velocity.x = 400 * (plat.position.x > world.player.position.y ? -1 : 1);
+        Vector2 targetPosition = new Vector2(plat.position.x + Utils.random2Range(plat.bounds.getWidth() * 0.4f),
+                plat.position.y);
+        created.velocity.x = 400 * (targetPosition.x > world.player.position.y ? -1 : 1);
         created.mirror = created.velocity.x > 0;
-        created.setPosition(plat.position.x - created.velocity.x * 0.5f, plat.bounds.y + plat.bounds.height - (Unit.BASE_ACCEL / 2) * 0.25f);
+        created.setPosition(targetPosition.x - created.velocity.x * 0.5f, targetPosition.y + plat.bounds.height - (Unit.BASE_ACCEL / 2) * 0.25f);
         enemies.add(created);
         world.addObject(created);
     }

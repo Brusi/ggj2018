@@ -179,7 +179,7 @@ public class World {
 
     private void updateInput() {
         playerTarget.on = false;
-        if (!player.grounded) {
+        if (!player.grounded || isDead()) {
             // Ignore input if player is not on the ground.
             return;
         }
