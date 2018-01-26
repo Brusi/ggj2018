@@ -14,8 +14,10 @@ public class Player extends DynamicGameObject implements Renderable, Updatable {
 
     public static final int BASE_ACCEL = -2000;
 
+    public boolean grounded = false;
+
     public Player(float x, float y) {
-        super(x, y, 40, 80);
+        super(x, y, 40, 72);
         accel.y = BASE_ACCEL;
     }
 
@@ -32,12 +34,14 @@ public class Player extends DynamicGameObject implements Renderable, Updatable {
 
     @Override
     public void update(float deltaTime, World world) {
+        grounded = false;
         float damping = velocity.y * -0.5f;
         accel.y = BASE_ACCEL + damping;
-        if (!collidePlatform(world)) {
-            velocity.y += accel.y * deltaTime;
-        }
         setPosition(position.x, position.y + velocity.y * deltaTime);
+        velocity.y += accel.y * deltaTime;
+        if (!grounded && collidePlatform(world)) {
+            grounded = true;
+        }
     }
 
     @Override

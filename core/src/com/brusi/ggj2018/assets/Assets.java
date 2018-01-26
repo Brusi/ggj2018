@@ -15,7 +15,11 @@ public class Assets {
     public Sprite bg;
 
     public Sprite player;
+    public Sprite enemy;
+    public Sprite arrow;
     public Sprite platform;
+    public Sprite platform_left;
+    public Sprite platform_right;
 
     public static Assets get() {
         return ((ggj2018)Gdx.app.getApplicationListener()).assets;
@@ -26,7 +30,11 @@ public class Assets {
 
         TextureAtlas atlas = new TextureAtlas("objects/texture.txt");
         player = atlas.createSprite("hero");
+        enemy = atlas.createSprite("bad_guy");
+        arrow = atlas.createSprite("arrow");
         platform = atlas.createSprite("plat");
+        platform_left = atlas.createSprite("plat_left_end");
+        platform_right = atlas.createSprite("plat_right_end");
     }
 
     public void dispose() {

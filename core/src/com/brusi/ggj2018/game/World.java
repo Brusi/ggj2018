@@ -1,6 +1,7 @@
 package com.brusi.ggj2018.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
@@ -51,6 +52,7 @@ public class World {
     }
 
     void update(float deltaTime) {
+        updateCheats();
         updateInput();
 
         for (Updatable object : objectsToUpdate) {
@@ -58,7 +60,18 @@ public class World {
         }
     }
 
+    private void updateCheats() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            player.setPosition(100, 100);
+            player.velocity.setZero();
+        }
+    }
+
     private void updateInput() {
+        if (!player.grounded) {
+            // Ignore input if player is not on the ground.
+            return;
+        }
         controls.update();
         if (controls.getReleased()) {
             Gdx.app.log("DEBUG", "Touch released.");
