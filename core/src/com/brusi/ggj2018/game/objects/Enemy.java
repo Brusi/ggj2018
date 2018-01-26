@@ -35,6 +35,7 @@ public class Enemy extends Unit {
     public void update(float deltaTime, World world) {
         if (dead) {
             active = false;
+            world.removeObject(this);
             return;
         }
         super.update(deltaTime, world);
