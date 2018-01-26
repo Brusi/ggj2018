@@ -1,15 +1,18 @@
-package com.brusi.ggj2018.game;
+package com.brusi.ggj2018.ui;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.game.World;
+import com.brusi.ggj2018.game.WorldRenderer;
 
 /**
  * Created by pc on 1/26/2018.
  */
 
-class UiRenderer {
+public class UiRenderer {
     private Batch batch = new SpriteBatch();
     public OrthographicCamera cam = new OrthographicCamera(WorldRenderer.FRUSTUM_WIDTH, WorldRenderer.FRUSTUM_HEIGHT);
 
@@ -25,7 +28,7 @@ class UiRenderer {
         batch.end();
     }
 
-    void dispose() {
+    public void dispose() {
         batch.dispose();
     }
 }

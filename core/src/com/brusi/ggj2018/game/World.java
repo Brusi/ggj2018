@@ -45,6 +45,8 @@ public class World {
 
     final EventQueue bulletTimeEvents = new EventQueue();
 
+    float gameTime = 0;
+
     public World(Controls controls)
     {
         this.controls = controls;
@@ -118,6 +120,7 @@ public class World {
         bulletTimeEvents.update(deltaTime);
 
         deltaTime = getBulletTime(deltaTime);
+        gameTime += deltaTime;
         updateInput(deltaTime);
         lockObjectCreation = true;
         updateParticles(deltaTime);

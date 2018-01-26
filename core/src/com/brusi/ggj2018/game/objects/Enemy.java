@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
-import com.brusi.ggj2018.game.graphic.Particle;
 
 /**
  * Created by pc on 1/26/2018.
@@ -107,7 +106,7 @@ public class Enemy extends Unit {
         if (state == State.IDLE || state == State.JUMPING_IN) {
             return Assets.get().enemy;
         }
-        int index = Math.min(3, (int) Math.floor((stateTime / PREPARE_SHOT_TIME) * Assets.get().enemyShoot.size));
-        return sprite = Assets.get().enemyShoot.get(index);
+        int index = Math.min(3, (int) Math.floor((stateTime / PREPARE_SHOT_TIME) * Assets.get().enemy_shoot.size));
+        return sprite = Assets.get().enemy_shoot.get(index);
     }
 }
