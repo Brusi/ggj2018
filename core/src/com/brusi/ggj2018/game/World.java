@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class World {
-    protected Player player = new Player(0, 0);
+    public Player player = new Player(0, 0);
     final public Vector2 playerTargetPosition = new Vector2();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
@@ -30,7 +30,7 @@ public class World {
     {
         this.controls = controls;
         addObject(player);
-        addObject(new EnemyGenerator(3, 5, 15));
+        addObject(new EnemyGenerator(3, 1, 5));
         createPlatforms();
     }
 
