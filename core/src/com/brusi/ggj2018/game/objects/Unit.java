@@ -13,16 +13,19 @@ import com.brusi.ggj2018.game.WorldRenderer;
 
 class Unit extends DynamicGameObject implements Renderable, Updatable {
     public static final int BASE_ACCEL = -2000;
+    public static final int BASE_FRACTION = 4000;
     public boolean grounded = false;
     public boolean dead = false;
     private Sprite sprite;
+
+    public boolean mirror = false;
 
     public Unit(float x, float y, float width, float height, Sprite sprite) {
         super(x, y, width, height);
         this.sprite = sprite;
     }
 
-    private boolean collidePlatform(World world) {
+    protected boolean collidePlatform(World world) {
         for (Platform platform : world.platforms) {
             if (platform.collide(this)) {
                 velocity.y = 0;
@@ -37,11 +40,16 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
     public void update(float deltaTime, World world) {
         grounded = false;
         float damping = velocity.y * -0.5f;
-        accel.y = BASE_ACCEL + damping;
-        setPosition(position.x, position.y + velocity.y * deltaTime);
+        accel.y = getGAccel() + damping;
+        setPosition(position.x+ velocity.x * deltaTime, position.y + velocity.y * deltaTime);
         velocity.y += accel.y * deltaTime;
-        if (!grounded && collidePlatform(world)) {
+        velocity.x += accel.x * deltaTime;
+        if (collidePlatform(world) && velocity.y <= 0) {
             grounded = true;
+        }
+
+        if (grounded && Math.abs(velocity.x) > 0) {
+            velocity.x -= Math.signum(velocity.x) * Math.min(Math.abs(velocity.x), deltaTime * BASE_FRACTION);
         }
 
         checkDeath();
@@ -53,8 +61,13 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
         }
     }
 
+    protected float getGAccel() {
+        return BASE_ACCEL;
+    }
+
     @Override
     public void render(Batch batch) {
+        sprite.setFlip(mirror, false);
         sprite.setAlpha(1);
         Utils.drawCenter(batch, sprite, position.x, position.y);
     }

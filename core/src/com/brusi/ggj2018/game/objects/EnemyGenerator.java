@@ -1,8 +1,11 @@
 package com.brusi.ggj2018.game.objects;
 
+import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -42,8 +45,24 @@ public class EnemyGenerator implements Updatable {
         }
     }
 
-    private void generateEnemy(World world) {
-        Enemy created = new Enemy(80, 200);
+    private float dist(Platform platform, World world) {
+        return Math.abs(platform.position.y - world.player.position.y);
+    }
+
+    private void generateEnemy(final World world) {
+        Enemy created = new Enemy(80, 230);
+        Collections.sort(world.platforms, new Comparator<Platform>() {
+            @Override
+            public int compare(Platform platform, Platform t1) {
+                return (int)(10000 * (Math.abs(platform.position.y - world.player.bounds.y) - Math.abs(t1.position.y - world.player.bounds.y)));
+            }
+        });
+        int select = Utils.randomInt(5);
+        Platform plat = world.platforms.get(select);
+        created.targetPlatform = plat;
+        created.velocity.x = 400 * (plat.position.x > world.player.position.y ? -1 : 1);
+        created.mirror = created.velocity.x > 0;
+        created.setPosition(plat.position.x - created.velocity.x * 0.5f, plat.bounds.y + plat.bounds.height - (Unit.BASE_ACCEL / 2) * 0.25f);
         enemies.add(created);
         world.addObject(created);
     }

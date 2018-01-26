@@ -20,7 +20,7 @@ import java.util.Iterator;
  */
 
 public class World {
-    protected Player player = new Player(0, 0);
+    public Player player = new Player(0, 0);
     final public PlayerTarget playerTarget = new PlayerTarget();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
@@ -34,6 +34,7 @@ public class World {
     {
         this.controls = controls;
         addObject(player);
+        addObject(new EnemyGenerator(3, 1, 5));
         objectsToRender.add(playerTarget);
         addObject(new EnemyGenerator(3, 5, 15));
         createPlatforms();
