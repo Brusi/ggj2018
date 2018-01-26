@@ -3,6 +3,7 @@ package com.brusi.ggj2018.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class World {
     protected Player player = new Player(100, 100);
-    final public Vector2 playerTargetPosition = new Vector2();
+    final public PlayerTarget playerTarget = new PlayerTarget();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
@@ -29,6 +30,7 @@ public class World {
     {
         this.controls = controls;
         addObject(player);
+        objectsToRender.add(playerTarget);
         createPlatforms();
     }
 
@@ -68,25 +70,20 @@ public class World {
     }
 
     private void updateInput() {
+        playerTarget.on = false;
         if (!player.grounded) {
             // Ignore input if player is not on the ground.
             return;
         }
         controls.update();
         if (controls.getReleased()) {
-            Gdx.app.log("DEBUG", "Touch released.");
-            Vector2 basePos = controls.getBasePos();
-            Vector2 touchPos = controls.getTouchPos();
-            float xdiff = basePos.x - touchPos.x;
-            float ydiff = basePos.y - touchPos.y;
-            player.setPosition(player.position.x + xdiff, player.position.y + ydiff);
+            Vector2 diff = controls.getDiff();
+            player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
         }
         if (controls.isTouched()) {
-            Vector2 basePos = controls.getBasePos();
-            Vector2 touchPos = controls.getTouchPos();
-            float xdiff = basePos.x - touchPos.x;
-            float ydiff = basePos.y - touchPos.y;
-            playerTargetPosition.set(player.position.x + xdiff, player.position.y + ydiff);
+            Vector2 diff = controls.getDiff();
+            playerTarget.on = true;
+            playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
         }
     }
 }

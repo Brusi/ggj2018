@@ -36,11 +36,6 @@ public class WorldRenderer {
         for (Renderable object : world.objectsToRender) {
             object.render(batch);
         }
-        if (world.controls.isTouched()) {
-            Sprite sprite = Assets.get().player;
-            sprite.setAlpha(0.5f);
-            Utils.drawCenter(batch, sprite, world.playerTargetPosition.x, world.playerTargetPosition.y);
-        }
         batch.end();
     }
 }
