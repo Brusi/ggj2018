@@ -14,6 +14,8 @@ public class Arrow extends Unit {
 
     public Enemy shooter;
 
+    private boolean stuck = false;
+
     public Arrow(float x, float y) {
         super(x, y, 48, 6, Assets.get().arrow);
         accel.y = BASE_ACCEL;
@@ -31,20 +33,30 @@ public class Arrow extends Unit {
 
     @Override
     public void update(float deltaTime, World world) {
-        super.update(deltaTime, world);
-        Vector2 p = new Vector2(position.x + (mirror?1:-1) * bounds.width / 2, position.y);
-        for (Updatable obj : world.objectsToUpdate) {
-            if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
-                Unit u = (Unit)obj;
-                float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
-                if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
-                    u.dead = true;
-                    u.active = false;
-                    world.removeObject(this);
-                    return;
+        if (!stuck) {
+            super.update(deltaTime, world);
+            Vector2 p = new Vector2(position.x + (mirror ? 1 : -1) * bounds.width / 2, position.y);
+            for (Updatable obj : world.objectsToUpdate) {
+                if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
+                    Unit u = (Unit) obj;
+                    float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
+                    if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                        u.dead = true;
+                        if (u == world.player) {
+                            stuck = true;
+                        } else {
+                            world.removeObject(this);
+                        }
+                        return;
+                    }
                 }
             }
         }
+    }
+
+    @Override
+    protected float getDamping() {
+        return 0;
     }
 
     @Override

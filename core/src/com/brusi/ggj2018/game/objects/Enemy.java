@@ -33,6 +33,10 @@ public class Enemy extends Unit {
 
     @Override
     public void update(float deltaTime, World world) {
+        if (dead) {
+            active = false;
+            return;
+        }
         super.update(deltaTime, world);
         if (grounded) {
             nextShoot -= deltaTime;

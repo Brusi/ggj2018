@@ -39,7 +39,7 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
     @Override
     public void update(float deltaTime, World world) {
         grounded = false;
-        float damping = velocity.y * -0.5f;
+        float damping = velocity.y * getDamping();
         accel.y = getGAccel() + damping;
         setPosition(position.x+ velocity.x * deltaTime, position.y + velocity.y * deltaTime);
         velocity.y += accel.y * deltaTime;
@@ -53,10 +53,10 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
         }
 
         checkDeath();
+    }
 
-        if (dead) {
-            world.removeObject(this);
-        }
+    protected float getDamping() {
+        return -0.5f;
     }
 
     private void checkDeath() {

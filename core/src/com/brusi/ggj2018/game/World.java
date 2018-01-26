@@ -45,7 +45,7 @@ public class World {
     {
         this.controls = controls;
         addObject(player);
-        enemyGenerator = new EnemyGenerator(3, 1, 5, 2);
+        enemyGenerator = new EnemyGenerator(9, 1, 6, 2);
         addObject(enemyGenerator);
         objectsToRender.add(playerTarget);
         createPlatforms();
