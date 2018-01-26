@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.ggj2018;
 
 /**
@@ -23,6 +24,8 @@ public class Assets {
     public Sprite platform_left;
     public Sprite platform_right;
 
+    public Array<Sprite> teleport_particle;
+
     public static Assets get() {
         return ((ggj2018)Gdx.app.getApplicationListener()).assets;
     }
@@ -39,6 +42,9 @@ public class Assets {
         platform = atlas.createSprite("plat");
         platform_left = atlas.createSprite("plat_left_end");
         platform_right = atlas.createSprite("plat_right_end");
+
+        TextureAtlas add_atlas = new TextureAtlas("objects/addeffects.txt");
+        teleport_particle = add_atlas.createSprites("teleport_particle");
     }
 
     public void dispose() {

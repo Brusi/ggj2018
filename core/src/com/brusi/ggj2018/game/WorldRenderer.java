@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
 
@@ -35,6 +36,10 @@ public class WorldRenderer {
         Utils.drawCenter(batch, Assets.get().bg, 0, 0);
         for (Renderable object : world.objectsToRender) {
             object.render(batch);
+        }
+        for (Particle p : world.particles) {
+            Gdx.app.log("DEBUG", "Rendering particle at " + p.position);
+            p.render(batch);
         }
         batch.end();
     }
