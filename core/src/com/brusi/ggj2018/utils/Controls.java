@@ -50,4 +50,8 @@ public class Controls {
     public boolean getReleased() {
         return released;
     }
+
+    public boolean isTouched() {
+        return touchedBefore;
+    }
 }

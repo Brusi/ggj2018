@@ -1,6 +1,7 @@
 package com.brusi.ggj2018.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
@@ -10,9 +11,12 @@ import com.brusi.ggj2018.game.World;
  */
 
 public class Player extends DynamicGameObject implements Renderable, Updatable {
+
+    public static final int BASE_ACCEL = -2000;
+
     public Player(float x, float y) {
         super(x, y, 40, 80);
-        accel.y = -100;
+        accel.y = BASE_ACCEL;
     }
 
     private boolean collidePlatform(World world) {
@@ -28,6 +32,8 @@ public class Player extends DynamicGameObject implements Renderable, Updatable {
 
     @Override
     public void update(float deltaTime, World world) {
+        float damping = velocity.y * -0.5f;
+        accel.y = BASE_ACCEL + damping;
         if (!collidePlatform(world)) {
             velocity.y += accel.y * deltaTime;
         }
@@ -36,6 +42,8 @@ public class Player extends DynamicGameObject implements Renderable, Updatable {
 
     @Override
     public void render(Batch batch) {
-        Utils.drawCenter(batch, Assets.get().player, position.x, position.y);
+        Sprite sprite = Assets.get().player;
+        sprite.setAlpha(1);
+        Utils.drawCenter(batch, sprite, position.x, position.y);
     }
 }

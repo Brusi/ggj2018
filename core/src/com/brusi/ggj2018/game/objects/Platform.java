@@ -10,7 +10,7 @@ import com.brusi.ggj2018.game.Utils;
 
 public class Platform extends GameObject implements Renderable {
     public Platform(float x, float y, int width) {
-        super(x, y, 80 * width, 80);
+        super(x, y, 80 * width, 18);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Platform extends GameObject implements Renderable {
         float x = bounds.getX() + 40;
         while (x < bounds.getX() + bounds.getWidth() - 10)
         {
-            Utils.drawCenter(batch, Assets.get().player, x, position.y);
+            Utils.drawCenter(batch, Assets.get().platform, x, position.y);
             x += 80;
         }
     }

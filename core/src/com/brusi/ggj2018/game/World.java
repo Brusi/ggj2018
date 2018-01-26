@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 public class World {
     protected Player player = new Player(100, 100);
+    final public Vector2 playerTargetPosition = new Vector2();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
 
-    private Controls controls;
+    Controls controls;
 
     public World(Controls controls)
     {
@@ -66,6 +67,13 @@ public class World {
             float xdiff = basePos.x - touchPos.x;
             float ydiff = basePos.y - touchPos.y;
             player.setPosition(player.position.x + xdiff, player.position.y + ydiff);
+        }
+        if (controls.isTouched()) {
+            Vector2 basePos = controls.getBasePos();
+            Vector2 touchPos = controls.getTouchPos();
+            float xdiff = basePos.x - touchPos.x;
+            float ydiff = basePos.y - touchPos.y;
+            playerTargetPosition.set(player.position.x + xdiff, player.position.y + ydiff);
         }
     }
 }
