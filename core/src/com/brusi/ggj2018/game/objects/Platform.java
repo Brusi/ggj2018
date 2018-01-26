@@ -1,6 +1,7 @@
 package com.brusi.ggj2018.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 
@@ -18,7 +19,13 @@ public class Platform extends GameObject implements Renderable {
         float x = bounds.getX() + 40;
         while (x < bounds.getX() + bounds.getWidth() - 10)
         {
-            Utils.drawCenter(batch, Assets.get().platform, x, position.y);
+            Sprite s = Assets.get().platform;
+            if (x <= bounds.getX() + 40) {
+                s = Assets.get().platform_left;
+            } else if (x >= bounds.getX() + bounds.getWidth() - 90) {
+                s = Assets.get().platform_right;
+            }
+            Utils.drawCenter(batch, s, x, position.y);
             x += 80;
         }
     }
