@@ -53,6 +53,10 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
         }
 
         checkDeath();
+
+        if (dead) {
+            world.removeObject(this);
+        }
     }
 
     private void checkDeath() {

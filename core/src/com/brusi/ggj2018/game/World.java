@@ -23,7 +23,7 @@ public class World {
     public Player player = new Player(0, 0);
     final public PlayerTarget playerTarget = new PlayerTarget();
 
-    protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
+    public ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
     public ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -63,6 +63,7 @@ public class World {
 
     private boolean lockObjectCreation = false;
     private ArrayList<Object> awaitingObjects = new ArrayList<Object>();
+    private ArrayList<Object> awaitingRemoveObjects = new ArrayList<Object>();
 
     public void addObject(Object object)
     {
@@ -80,6 +81,21 @@ public class World {
         }
     }
 
+    public void removeObject(Object object) {
+        if (lockObjectCreation) {
+            awaitingRemoveObjects.add(object);
+            return;
+        }
+        if (object instanceof Updatable)
+        {
+            objectsToUpdate.remove((Updatable)object);
+        }
+        if (object instanceof Renderable)
+        {
+            objectsToRender.remove((Renderable)object);
+        }
+    }
+
     void update(float deltaTime) {
         lockObjectCreation = true;
         updateInput();
@@ -93,6 +109,10 @@ public class World {
             addObject(awaitingObject);
         }
         awaitingObjects.clear();
+        for (Object awaitingObject : awaitingRemoveObjects) {
+            removeObject(awaitingObject);
+        }
+        awaitingRemoveObjects.clear();
     }
 
     private void updateParticles(float deltaTime) {
@@ -132,6 +152,8 @@ public class World {
             particles.add(new TeleportParticle(position.x, position.y));
         }
     }
+
+
 
     public boolean isDead() {
         return player.dead;

@@ -1,5 +1,6 @@
 package com.brusi.ggj2018.game.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.World;
 
@@ -8,6 +9,8 @@ import com.brusi.ggj2018.game.World;
  */
 
 public class Arrow extends Unit {
+
+    public Enemy shooter;
 
     public Arrow(float x, float y) {
         super(x, y, 48, 6, Assets.get().arrow);
@@ -22,5 +25,22 @@ public class Arrow extends Unit {
     @Override
     protected boolean collidePlatform(World world) {
         return false;
+    }
+
+    @Override
+    public void update(float deltaTime, World world) {
+        super.update(deltaTime, world);
+        Vector2 p = new Vector2(position.x + (mirror?1:-1) * bounds.width / 2, position.y);
+        for (Updatable obj : world.objectsToUpdate) {
+            if (obj instanceof Unit && !(obj instanceof Arrow)) {
+                Unit u = (Unit)obj;
+                float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
+                if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                    u.dead = true;
+                    world.removeObject(this);
+                    return;
+                }
+            }
+        }
     }
 }
