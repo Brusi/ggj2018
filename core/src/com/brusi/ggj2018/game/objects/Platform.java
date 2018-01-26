@@ -21,9 +21,9 @@ public class Platform extends GameObject implements Renderable {
         {
             Sprite s = Assets.get().platform;
             if (x <= bounds.getX() + 40) {
-                s = Assets.get().platform;
-            } else if (x >= bounds.getX() + bounds.getWidth() - 20) {
-                s = Assets.get().platform;
+                s = Assets.get().platform_left;
+            } else if (x >= bounds.getX() + bounds.getWidth() - 90) {
+                s = Assets.get().platform_right;
             }
             Utils.drawCenter(batch, s, x, position.y);
             x += 80;

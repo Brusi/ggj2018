@@ -3,6 +3,7 @@ package com.brusi.ggj2018.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.brusi.ggj2018.game.objects.EnemyGenerator;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class World {
-    protected Player player = new Player(100, 100);
+    protected Player player = new Player(0, 0);
     final public Vector2 playerTargetPosition = new Vector2();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
@@ -29,18 +30,40 @@ public class World {
     {
         this.controls = controls;
         addObject(player);
+        addObject(new EnemyGenerator(3, 5, 15));
         createPlatforms();
     }
 
     private void createPlatforms()
     {
-        Platform p = new Platform(100, -100, 3);
+        addPlatform(0, -40, 4);
+        addPlatform(200, 60, 3);
+        addPlatform(-200, 60, 3);
+        addPlatform(0, 140, 2);
+        addPlatform(350, 180, 2);
+        addPlatform(-350, 180, 2);
+        addPlatform(-400, -100, 4);
+        addPlatform(400, -100, 3);
+        addPlatform(300, -200, 4);
+        addPlatform(-250, -220, 3);
+    }
+
+    private Platform addPlatform(float x, float y, int width) {
+        Platform p = new Platform(x, y, width);
         addObject(p);
         platforms.add(p);
+        return p;
     }
+
+    private boolean lockObjectCreation = false;
+    private ArrayList<Object> awaitingObjects = new ArrayList<Object>();
 
     public void addObject(Object object)
     {
+        if (lockObjectCreation) {
+            awaitingObjects.add(object);
+            return;
+        }
         if (object instanceof Updatable)
         {
             objectsToUpdate.add((Updatable)object);
@@ -52,17 +75,23 @@ public class World {
     }
 
     void update(float deltaTime) {
+        lockObjectCreation = true;
         updateCheats();
         updateInput();
 
         for (Updatable object : objectsToUpdate) {
             object.update(deltaTime, this);
         }
+        lockObjectCreation = false;
+        for (Object awaitingObject : awaitingObjects) {
+            addObject(awaitingObject);
+        }
+        awaitingObjects.clear();
     }
 
     private void updateCheats() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.setPosition(100, 100);
+            player.setPosition(0, 0);
             player.velocity.setZero();
         }
     }
