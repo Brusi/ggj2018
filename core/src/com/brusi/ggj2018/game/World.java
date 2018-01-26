@@ -10,6 +10,7 @@ import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.TeleportParticle;
 import com.brusi.ggj2018.game.objects.Arrow;
 import com.brusi.ggj2018.game.objects.EnemyGenerator;
+import com.brusi.ggj2018.game.objects.GameObject;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
@@ -18,6 +19,8 @@ import com.brusi.ggj2018.utils.Controls;
 import com.brusi.ggj2018.utils.EventQueue;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import sun.management.counter.Units;
@@ -196,8 +199,9 @@ public class World {
                 // Teleport is too short!
                 return;
             }
+            createTeleportParticles(player.position, 8, 0.5f);
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
-            createTeleportParticles(player.position);
+            createTeleportParticles(player.position, 20, 1);
         }
         if (controls.isTouched()) {
             Vector2 diff = controls.getDiff();
@@ -206,9 +210,10 @@ public class World {
         }
     }
 
-    private void createTeleportParticles(Vector2 position) {
-        for (int i=0; i < 10; i++) {
-            particles.add(new TeleportParticle(position.x, position.y));
+    private void createTeleportParticles(Vector2 position, int number, float time) {
+        Gdx.app.log("DEBUG", "Add teleport particles.");
+        for (int i=0; i < number; i++) {
+            particles.add(new TeleportParticle(position.x, position.y, time));
         }
     }
 

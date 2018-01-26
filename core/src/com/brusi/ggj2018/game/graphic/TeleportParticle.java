@@ -14,12 +14,15 @@ public class TeleportParticle extends Particle {
 
     public static final int INIT_VEL = 500;
 
+    private float totalTime;
+
     private final float rotationSpeed = Utils.random2Range(30);
 
     float stateTime = 0;
 
-    public TeleportParticle(float x, float y) {
+    public TeleportParticle(float x, float y, float time) {
         super(Assets.get().teleport_particle.random(), x, y, getVel());
+        totalTime = time;
     }
 
     private static Vector2 getVel() {
@@ -32,7 +35,7 @@ public class TeleportParticle extends Particle {
     @Override
     public void render(Batch batch) {
         BatchUtils.setBlendFuncAdd(batch);
-        float tint = Utils.clamp01(1 - stateTime * 2);
+        float tint = Utils.clamp01(totalTime - stateTime);
         sprite.setColor(tint, tint, tint, 1);
         super.render(batch);
         BatchUtils.setBlendFuncNormal(batch);
