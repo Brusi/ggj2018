@@ -10,7 +10,7 @@ import com.brusi.ggj2018.utils.BatchUtils;
  * Created by pc on 1/26/2018.
  */
 
-public class TeleportParticle extends Particle {
+public class BoneParticle extends Particle {
 
     public static final int INIT_VEL = 500;
 
@@ -18,8 +18,8 @@ public class TeleportParticle extends Particle {
 
     float stateTime = 0;
 
-    public TeleportParticle(float x, float y) {
-        super(Assets.get().teleport_particle.random(), x, y, getVel());
+    public BoneParticle(float x, float y) {
+        super(Assets.get().bones.random(), x, y, getVel());
     }
 
     private static Vector2 getVel() {
@@ -30,19 +30,16 @@ public class TeleportParticle extends Particle {
     }
 
     @Override
-    public void render(Batch batch) {
-        BatchUtils.setBlendFuncAdd(batch);
-        float tint = Utils.clamp01(1 - stateTime * 2);
-        sprite.setColor(tint, tint, tint, 1);
-        super.render(batch);
-        BatchUtils.setBlendFuncNormal(batch);
-    }
-
-    @Override
     public void update(float deltaTime) {
         stateTime += deltaTime;
         vel.y += GRAVITY * deltaTime;
         rotation += rotationSpeed * deltaTime;
         super.update(deltaTime);
+    }
+
+    @Override
+    public void render(Batch batch) {
+        sprite.setScale(0.5f);
+        super.render(batch);
     }
 }

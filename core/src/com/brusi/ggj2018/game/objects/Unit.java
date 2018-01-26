@@ -16,7 +16,7 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
     public static final int BASE_FRACTION = 4000;
     public boolean grounded = false;
     public boolean dead = false;
-    private Sprite sprite;
+    protected Sprite sprite;
 
     public boolean mirror = false;
 

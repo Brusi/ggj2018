@@ -38,7 +38,6 @@ public class WorldRenderer {
             object.render(batch);
         }
         for (Particle p : world.particles) {
-            Gdx.app.log("DEBUG", "Rendering particle at " + p.position);
             p.render(batch);
         }
         batch.end();

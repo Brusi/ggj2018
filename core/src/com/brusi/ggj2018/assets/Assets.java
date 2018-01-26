@@ -26,6 +26,8 @@ public class Assets {
     public Sprite platform_right;
 
     public Array<Sprite> teleport_particle;
+    public Array<Sprite> bones;
+    public Array<Sprite> enemyShoot;
 
     public static Assets get() {
         return ((ggj2018)Gdx.app.getApplicationListener()).assets;
@@ -44,6 +46,8 @@ public class Assets {
         platform = atlas.createSprite("plat");
         platform_left = atlas.createSprite("plat_left_end");
         platform_right = atlas.createSprite("plat_right_end");
+        bones = atlas.createSprites("bone");
+        enemyShoot = atlas.createSprites("bad_guy_draw");
 
         TextureAtlas add_atlas = new TextureAtlas("objects/addeffects.txt");
         teleport_particle = add_atlas.createSprites("teleport_particle");

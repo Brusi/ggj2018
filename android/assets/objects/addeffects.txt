@@ -1,25 +1,46 @@
 addeffects.jpg
-size: 157, 56
+size: 314, 56
 format: RGB888
 filter: Linear,Linear
 repeat: none
-teleport_particle
+disappear_particle
   rotate: false
-  xy: 103, 1
+  xy: 205, 1
   size: 53, 50
   orig: 53, 50
   offset: 0, 0
   index: 1
-teleport_particle
+disappear_particle
   rotate: false
   xy: 1, 1
   size: 49, 54
   orig: 49, 54
   offset: 0, 0
   index: 2
+disappear_particle
+  rotate: false
+  xy: 103, 1
+  size: 49, 53
+  orig: 49, 53
+  offset: 0, 0
+  index: 3
+teleport_particle
+  rotate: false
+  xy: 260, 1
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: 1
 teleport_particle
   rotate: false
   xy: 52, 1
+  size: 49, 54
+  orig: 49, 54
+  offset: 0, 0
+  index: 2
+teleport_particle
+  rotate: false
+  xy: 154, 1
   size: 49, 53
   orig: 49, 53
   offset: 0, 0

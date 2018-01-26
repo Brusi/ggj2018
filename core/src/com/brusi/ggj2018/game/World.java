@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
+import com.brusi.ggj2018.game.graphic.BoneParticle;
 import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.TeleportParticle;
@@ -138,8 +139,13 @@ public class World {
     }
 
     private float getBulletTime(float deltaTime) {
+        if (isDead()) {
+            // Always bullet time on death!
+            return 0.1f * deltaTime;
+        }
+
         if (controls.isTouched()) {
-            bulletTimeRatio = (bulletTimeRatio + 0.2f) / 2;
+            bulletTimeRatio = (bulletTimeRatio * 0.8f + 0.2f * 0.2f);
             if (bulletTimeEvents.isEmpty()) {
                 bulletTimeEvents.addEventFromNow(0.3f, new EventQueue.Event() {
                     @Override
@@ -150,7 +156,7 @@ public class World {
             }
         } else {
             bulletTimeEvents.clear();
-            bulletTimeRatio = (bulletTimeRatio + 1) / 2;
+            bulletTimeRatio = (bulletTimeRatio * 0.8f + 0.2f);
         }
         return deltaTime * bulletTimeRatio;
     }
@@ -201,15 +207,18 @@ public class World {
     }
 
     private void createTeleportParticles(Vector2 position) {
-        Gdx.app.log("DEBUG", "Add teleport particles.");
-        for (int i=0; i < 20; i++) {
+        for (int i=0; i < 10; i++) {
             particles.add(new TeleportParticle(position.x, position.y));
         }
     }
 
-
-
     public boolean isDead() {
         return player.dead;
+    }
+
+    public void addBoneParticles(float x, float y) {
+        for (int i=0; i < 5; i++) {
+            particles.add(new BoneParticle(x, y));
+        }
     }
 }

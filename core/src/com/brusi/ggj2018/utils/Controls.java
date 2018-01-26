@@ -49,7 +49,7 @@ public class Controls {
     }
 
     public Vector2 getDiff() {
-        diffPos.set(basePos.x - touchPos.x, basePos.y - touchPos.y);
+        diffPos.set((basePos.x - touchPos.x) * 2, (basePos.y - touchPos.y) * 2);
         return diffPos;
     }
 
