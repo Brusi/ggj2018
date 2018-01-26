@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
+import com.brusi.ggj2018.game.WorldRenderer;
 
 /**
  * Created by Asaf on 26/01/2018.
@@ -13,6 +14,7 @@ import com.brusi.ggj2018.game.World;
 class Unit extends DynamicGameObject implements Renderable, Updatable {
     public static final int BASE_ACCEL = -2000;
     public boolean grounded = false;
+    public boolean dead = false;
     private Sprite sprite;
 
     public Unit(float x, float y, float width, float height, Sprite sprite) {
@@ -40,6 +42,14 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
         velocity.y += accel.y * deltaTime;
         if (!grounded && collidePlatform(world)) {
             grounded = true;
+        }
+
+        checkDeath();
+    }
+
+    private void checkDeath() {
+        if (position.y < -WorldRenderer.FRUSTUM_HEIGHT / 2) {
+            dead = true;
         }
     }
 

@@ -26,6 +26,7 @@ public class World {
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     Controls controls;
+    private boolean dead;
 
     public World(Controls controls)
     {
@@ -78,7 +79,6 @@ public class World {
 
     void update(float deltaTime) {
         lockObjectCreation = true;
-        updateCheats();
         updateInput();
 
         for (Updatable object : objectsToUpdate) {
@@ -89,13 +89,6 @@ public class World {
             addObject(awaitingObject);
         }
         awaitingObjects.clear();
-    }
-
-    private void updateCheats() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.setPosition(0, 0);
-            player.velocity.setZero();
-        }
     }
 
     private void updateInput() {
@@ -114,5 +107,9 @@ public class World {
             playerTarget.on = true;
             playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
         }
+    }
+
+    public boolean isDead() {
+        return player.dead;
     }
 }
