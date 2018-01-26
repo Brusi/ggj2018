@@ -1,5 +1,6 @@
 package com.brusi.ggj2018.game;
 
+import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
@@ -16,12 +17,22 @@ public class World {
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
 
+    public ArrayList<Platform> platforms = new ArrayList<Platform>();
+
     public World()
     {
-        AddObject(player);
+        addObject(player);
+        createPlatforms();
+    }
+
+    private void createPlatforms()
+    {
+        Platform p = new Platform(100, -100, 3);
+        addObject(p);
+        platforms.add(p);
     }
     
-    public void AddObject(Object object)
+    public void addObject(Object object)
     {
         if (object instanceof Updatable)
         {
@@ -36,7 +47,7 @@ public class World {
     void update(float deltaTime)
     {
         for (Updatable object : objectsToUpdate) {
-            object.update(deltaTime);
+            object.update(deltaTime, this);
         }
     }
 }
