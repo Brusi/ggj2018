@@ -3,6 +3,7 @@ package com.brusi.ggj2018.assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.brusi.ggj2018.ggj2018;
 
 /**
@@ -11,19 +12,32 @@ import com.brusi.ggj2018.ggj2018;
 
 public class Assets {
 
+    public Sprite bg;
+
     public Sprite player;
+    public Sprite enemy;
+    public Sprite arrow;
+    public Sprite platform;
+    public Sprite platform_left;
+    public Sprite platform_right;
 
     public static Assets get() {
         return ((ggj2018)Gdx.app.getApplicationListener()).assets;
     }
 
     public void init() {
-        // TODO: Initialize sprites.
-        player = new Sprite(new Texture("objects/player.png"));
+        bg = new Sprite(new Texture("objects/bg.jpg"));
+
+        TextureAtlas atlas = new TextureAtlas("objects/texture.txt");
+        player = atlas.createSprite("hero");
+        enemy = atlas.createSprite("bad_guy");
+        arrow = atlas.createSprite("arrow");
+        platform = atlas.createSprite("plat");
+        platform_left = atlas.createSprite("plat_left_end");
+        platform_right = atlas.createSprite("plat_right_end");
     }
 
     public void dispose() {
         // TODO: Dispose sprites??
-        player.getTexture().dispose();
     }
 }
