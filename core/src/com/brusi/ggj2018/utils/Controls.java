@@ -13,8 +13,9 @@ public class Controls {
     private final Camera cam;
 
     private boolean touchedBefore;
-    private Vector2 basePos = new Vector2();
-    private Vector2 touchPos = new Vector2();
+    private final Vector2 basePos = new Vector2();
+    private final Vector2 touchPos = new Vector2();
+    private final Vector2 diffPos = new Vector2();
     private boolean released;
 
     public Controls(TouchToPoint ttp, Camera cam) {
@@ -45,6 +46,11 @@ public class Controls {
 
     public Vector2 getTouchPos() {
         if (touchedBefore || released) return touchPos; else return null;
+    }
+
+    public Vector2 getDiff() {
+        diffPos.set(basePos.x - touchPos.x, basePos.y - touchPos.y);
+        return diffPos;
     }
 
     public boolean getReleased() {

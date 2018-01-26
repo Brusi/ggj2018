@@ -3,6 +3,7 @@ package com.brusi.ggj2018.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.objects.EnemyGenerator;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
@@ -18,19 +19,22 @@ import java.util.ArrayList;
 
 public class World {
     public Player player = new Player(0, 0);
-    final public Vector2 playerTargetPosition = new Vector2();
+    final public PlayerTarget playerTarget = new PlayerTarget();
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
 
     Controls controls;
+    private boolean dead;
 
     public World(Controls controls)
     {
         this.controls = controls;
         addObject(player);
         addObject(new EnemyGenerator(3, 1, 5));
+        objectsToRender.add(playerTarget);
+        addObject(new EnemyGenerator(3, 5, 15));
         createPlatforms();
     }
 
@@ -76,7 +80,6 @@ public class World {
 
     void update(float deltaTime) {
         lockObjectCreation = true;
-        updateCheats();
         updateInput();
 
         for (Updatable object : objectsToUpdate) {
@@ -89,33 +92,25 @@ public class World {
         awaitingObjects.clear();
     }
 
-    private void updateCheats() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.setPosition(0, 0);
-            player.velocity.setZero();
-        }
-    }
-
     private void updateInput() {
+        playerTarget.on = false;
         if (!player.grounded) {
             // Ignore input if player is not on the ground.
             return;
         }
         controls.update();
         if (controls.getReleased()) {
-            Gdx.app.log("DEBUG", "Touch released.");
-            Vector2 basePos = controls.getBasePos();
-            Vector2 touchPos = controls.getTouchPos();
-            float xdiff = basePos.x - touchPos.x;
-            float ydiff = basePos.y - touchPos.y;
-            player.setPosition(player.position.x + xdiff, player.position.y + ydiff);
+            Vector2 diff = controls.getDiff();
+            player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
         }
         if (controls.isTouched()) {
-            Vector2 basePos = controls.getBasePos();
-            Vector2 touchPos = controls.getTouchPos();
-            float xdiff = basePos.x - touchPos.x;
-            float ydiff = basePos.y - touchPos.y;
-            playerTargetPosition.set(player.position.x + xdiff, player.position.y + ydiff);
+            Vector2 diff = controls.getDiff();
+            playerTarget.on = true;
+            playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
         }
+    }
+
+    public boolean isDead() {
+        return player.dead;
     }
 }
