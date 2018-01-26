@@ -30,6 +30,8 @@ public class World {
 
     Controls controls;
 
+    float bulletTimeRatio = 1;
+
     public World(Controls controls)
     {
         this.controls = controls;
@@ -81,8 +83,9 @@ public class World {
     }
 
     void update(float deltaTime) {
-        lockObjectCreation = true;
         updateInput();
+        deltaTime = getBulletTime(deltaTime);
+        lockObjectCreation = true;
         updateParticles(deltaTime);
 
         for (Updatable object : objectsToUpdate) {
@@ -93,6 +96,15 @@ public class World {
             addObject(awaitingObject);
         }
         awaitingObjects.clear();
+    }
+
+    private float getBulletTime(float deltaTime) {
+        if (controls.isTouched()) {
+            bulletTimeRatio = (bulletTimeRatio + 0.2f) / 2;
+        } else {
+            bulletTimeRatio = (bulletTimeRatio + 1) / 2;
+        }
+        return deltaTime * bulletTimeRatio;
     }
 
     private void updateParticles(float deltaTime) {
@@ -116,6 +128,10 @@ public class World {
         controls.update();
         if (controls.getReleased()) {
             Vector2 diff = controls.getDiff();
+            if (diff.len() < 30) {
+                // Teleport is too short!
+                return;
+            }
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
             createTeleportParticles(player.position);
         }
