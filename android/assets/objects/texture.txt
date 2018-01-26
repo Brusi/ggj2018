@@ -1,95 +1,109 @@
 texture.png
-size: 344, 114
+size: 202, 200
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arrow
   rotate: false
-  xy: 18, 99
+  xy: 151, 75
   size: 48, 6
   orig: 48, 6
   offset: 0, 0
   index: -1
 bad_guy
   rotate: false
-  xy: 55, 1
+  xy: 45, 1
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: -1
 bad_guy_draw
   rotate: false
-  xy: 103, 1
+  xy: 93, 1
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 1
 bad_guy_draw
   rotate: false
-  xy: 151, 1
+  xy: 55, 99
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 2
 bad_guy_draw
   rotate: false
-  xy: 199, 1
+  xy: 103, 99
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 3
 bad_guy_draw
   rotate: false
-  xy: 247, 1
+  xy: 151, 83
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 4
+bar
+  rotate: false
+  xy: 1, 1
+  size: 20, 100
+  orig: 20, 100
+  offset: 0, 0
+  index: -1
+bar_bg
+  rotate: false
+  xy: 23, 1
+  size: 20, 100
+  orig: 20, 100
+  offset: 0, 0
+  index: -1
 bone
   rotate: false
-  xy: 295, 75
+  xy: 165, 161
   size: 19, 38
   orig: 19, 38
   offset: 0, 0
   index: 1
 bone
   rotate: false
-  xy: 1, 79
+  xy: 186, 161
   size: 15, 34
   orig: 15, 34
   offset: 0, 0
   index: 2
 hero
   rotate: false
-  xy: 295, 1
+  xy: 151, 1
   size: 48, 72
   orig: 48, 72
   offset: 0, 0
   index: -1
 hero_outline
   rotate: false
-  xy: 1, 1
+  xy: 1, 103
   size: 52, 76
   orig: 52, 76
   offset: 0, 0
   index: -1
 plat
   rotate: false
-  xy: 18, 79
+  xy: 1, 181
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_left_end
   rotate: false
-  xy: 100, 79
+  xy: 45, 79
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_right_end
   rotate: false
-  xy: 182, 79
+  xy: 83, 177
   size: 80, 18
   orig: 80, 18
   offset: 0, 0

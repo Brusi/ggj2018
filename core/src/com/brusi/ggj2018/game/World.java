@@ -2,7 +2,10 @@ package com.brusi.ggj2018.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
 import com.brusi.ggj2018.game.graphic.BoneParticle;
 import com.brusi.ggj2018.game.graphic.Particle;
@@ -199,9 +202,9 @@ public class World {
                 // Teleport is too short!
                 return;
             }
-            createTeleportParticles(player.position, 8, 0.5f);
+            createTeleportParticles(player.position, 8, 0.5f, Assets.get().disappear_teleport_particle);
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
-            createTeleportParticles(player.position, 20, 1);
+            createTeleportParticles(player.position, 20, 1, Assets.get().teleport_particle);
         }
         if (controls.isTouched()) {
             Vector2 diff = controls.getDiff();
@@ -210,10 +213,10 @@ public class World {
         }
     }
 
-    private void createTeleportParticles(Vector2 position, int number, float time) {
+    private void createTeleportParticles(Vector2 position, int number, float time, Array<Sprite> sprites) {
         Gdx.app.log("DEBUG", "Add teleport particles.");
         for (int i=0; i < number; i++) {
-            particles.add(new TeleportParticle(position.x, position.y, time));
+            particles.add(new TeleportParticle(position.x, position.y, time, sprites));
         }
     }
 

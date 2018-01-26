@@ -1,7 +1,9 @@
 package com.brusi.ggj2018.game.graphic;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.utils.BatchUtils;
@@ -20,8 +22,8 @@ public class TeleportParticle extends Particle {
 
     float stateTime = 0;
 
-    public TeleportParticle(float x, float y, float time) {
-        super(Assets.get().teleport_particle.random(), x, y, getVel());
+    public TeleportParticle(float x, float y, float time, Array<Sprite> sprites) {
+        super(sprites.random(), x, y, getVel());
         totalTime = time;
     }
 

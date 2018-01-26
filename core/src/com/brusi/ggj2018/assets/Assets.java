@@ -25,7 +25,11 @@ public class Assets {
     public Sprite platform_left;
     public Sprite platform_right;
 
+    public Sprite bar;
+    public Sprite bar_bg;
+
     public Array<Sprite> teleport_particle;
+    public Array<Sprite> disappear_teleport_particle;
     public Array<Sprite> bones;
     public Array<Sprite> enemyShoot;
 
@@ -35,6 +39,7 @@ public class Assets {
 
     public void init() {
         bg = new Sprite(new Texture("objects/bg.jpg"));
+        bg.setScale(1.12f);
         title = new Sprite(new Texture("objects/title.png"));
         title_die = new Sprite(new Texture("objects/title_die.png"));
 
@@ -49,8 +54,12 @@ public class Assets {
         bones = atlas.createSprites("bone");
         enemyShoot = atlas.createSprites("bad_guy_draw");
 
+        bar = atlas.createSprite("bar");
+        bar_bg = atlas.createSprite("bar_bg");
+
         TextureAtlas add_atlas = new TextureAtlas("objects/addeffects.txt");
         teleport_particle = add_atlas.createSprites("teleport_particle");
+        disappear_teleport_particle = add_atlas.createSprites("disappear_particle");
     }
 
     public void dispose() {
