@@ -2,14 +2,13 @@ package com.brusi.ggj2018.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
 import com.brusi.ggj2018.utils.Controls;
-import com.brusi.ggj2018.utils.TouchToPoint;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by pc on 1/26/2018.
@@ -20,15 +19,25 @@ public class World {
 
     protected ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
     protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
+    public ArrayList<Platform> platforms = new ArrayList<Platform>();
+
     private Controls controls;
 
     public World(Controls controls)
     {
         this.controls = controls;
-        AddObject(player);
+        addObject(player);
+        createPlatforms();
     }
-    
-    public void AddObject(Object object)
+
+    private void createPlatforms()
+    {
+        Platform p = new Platform(100, -100, 3);
+        addObject(p);
+        platforms.add(p);
+    }
+
+    public void addObject(Object object)
     {
         if (object instanceof Updatable)
         {
@@ -42,8 +51,9 @@ public class World {
 
     void update(float deltaTime) {
         updateInput();
+
         for (Updatable object : objectsToUpdate) {
-            object.update(deltaTime);
+            object.update(deltaTime, this);
         }
     }
 

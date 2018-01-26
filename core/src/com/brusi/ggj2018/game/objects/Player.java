@@ -1,9 +1,9 @@
 package com.brusi.ggj2018.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.game.World;
 
 /**
  * Created by pc on 1/26/2018.
@@ -12,12 +12,25 @@ import com.brusi.ggj2018.game.Utils;
 public class Player extends DynamicGameObject implements Renderable, Updatable {
     public Player(float x, float y) {
         super(x, y, 40, 80);
-        accel.y = 0;
+        accel.y = -100;
+    }
+
+    private boolean collidePlatform(World world) {
+        for (Platform platform : world.platforms) {
+            if (platform.collide(this)) {
+                velocity.y = 0;
+                setPosition(position.x, platform.bounds.getY() + platform.bounds.getHeight() + bounds.getHeight() / 2);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public void update(float deltaTime) {
-        velocity.y += accel.y * deltaTime;
+    public void update(float deltaTime, World world) {
+        if (!collidePlatform(world)) {
+            velocity.y += accel.y * deltaTime;
+        }
         setPosition(position.x, position.y + velocity.y * deltaTime);
     }
 
