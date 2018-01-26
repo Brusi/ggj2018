@@ -11,7 +11,7 @@ public class PlayerTarget extends StaticGraphicObject {
     public boolean on;
 
     public PlayerTarget() {
-        super(Assets.get().player, 0, 0);
+        super(Assets.get().playerOutline, 0, 0);
     }
 
     @Override

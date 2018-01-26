@@ -1,7 +1,9 @@
 package com.brusi.ggj2018.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 
 /**
@@ -32,15 +34,21 @@ public class Arrow extends Unit {
         super.update(deltaTime, world);
         Vector2 p = new Vector2(position.x + (mirror?1:-1) * bounds.width / 2, position.y);
         for (Updatable obj : world.objectsToUpdate) {
-            if (obj instanceof Unit && !(obj instanceof Arrow)) {
+            if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
                 Unit u = (Unit)obj;
                 float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
                 if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
                     u.dead = true;
+                    u.active = false;
                     world.removeObject(this);
                     return;
                 }
             }
         }
+    }
+
+    @Override
+    public float getRotation() {
+        return (mirror ? 180 : 0) - (Utils.vec2deg(velocity.x, velocity.y) + 90);
     }
 }

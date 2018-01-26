@@ -73,6 +73,11 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
     public void render(Batch batch) {
         sprite.setFlip(mirror, false);
         sprite.setAlpha(1);
+        sprite.setRotation(getRotation());
         Utils.drawCenter(batch, sprite, position.x, position.y);
+    }
+
+    float getRotation() {
+        return 0;
     }
 }

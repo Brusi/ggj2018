@@ -1,25 +1,32 @@
 package com.brusi.ggj2018.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
 import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.TeleportParticle;
+import com.brusi.ggj2018.game.objects.Arrow;
 import com.brusi.ggj2018.game.objects.EnemyGenerator;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
 import com.brusi.ggj2018.utils.Controls;
+import com.brusi.ggj2018.utils.EventQueue;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import sun.management.counter.Units;
 
 /**
  * Created by pc on 1/26/2018.
  */
 
 public class World {
+    private final EnemyGenerator enemyGenerator;
     public Player player = new Player(0, 0);
     final public PlayerTarget playerTarget = new PlayerTarget();
 
@@ -32,13 +39,15 @@ public class World {
 
     float bulletTimeRatio = 1;
 
+    final EventQueue bulletTimeEvents = new EventQueue();
+
     public World(Controls controls)
     {
         this.controls = controls;
         addObject(player);
-        addObject(new EnemyGenerator(3, 1, 5));
+        enemyGenerator = new EnemyGenerator(3, 1, 5, 2);
+        addObject(enemyGenerator);
         objectsToRender.add(playerTarget);
-        addObject(new EnemyGenerator(3, 5, 15));
         createPlatforms();
     }
 
@@ -99,6 +108,10 @@ public class World {
     }
 
     void update(float deltaTime) {
+        updateCheats(deltaTime);
+
+        bulletTimeEvents.update(deltaTime);
+
         updateInput();
         deltaTime = getBulletTime(deltaTime);
         lockObjectCreation = true;
@@ -118,13 +131,38 @@ public class World {
         awaitingRemoveObjects.clear();
     }
 
+    private void updateCheats(float deltaTime) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            enemyGenerator.generateEnemy(this);
+        }
+    }
+
     private float getBulletTime(float deltaTime) {
         if (controls.isTouched()) {
             bulletTimeRatio = (bulletTimeRatio + 0.2f) / 2;
+            if (bulletTimeEvents.isEmpty()) {
+                bulletTimeEvents.addEventFromNow(0.3f, new EventQueue.Event() {
+                    @Override
+                    public void invoke() {
+                        addBulletTimeEvents();
+                    }
+                });
+            }
         } else {
+            bulletTimeEvents.clear();
             bulletTimeRatio = (bulletTimeRatio + 1) / 2;
         }
         return deltaTime * bulletTimeRatio;
+    }
+
+    private void addBulletTimeEvents() {
+        for (Updatable obj : objectsToUpdate) {
+            if (obj instanceof  Arrow) {
+                Arrow arrow = (Arrow)obj;
+                particles.add(new ArrowOnionSkin(arrow.position.x, arrow.position.y,
+                        arrow.getRotation(), arrow.mirror));
+            }
+        }
     }
 
     private void updateParticles(float deltaTime) {
@@ -164,7 +202,7 @@ public class World {
 
     private void createTeleportParticles(Vector2 position) {
         Gdx.app.log("DEBUG", "Add teleport particles.");
-        for (int i=0; i < 50; i++) {
+        for (int i=0; i < 20; i++) {
             particles.add(new TeleportParticle(position.x, position.y));
         }
     }

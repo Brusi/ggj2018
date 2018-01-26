@@ -22,16 +22,16 @@ public class EnemyGenerator implements Updatable {
 
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
-    public EnemyGenerator(int maxEnemies, float enemyEveryTimeMin, float enemyEveryTimeMax) {
+    public EnemyGenerator(int maxEnemies, float enemyEveryTimeMin, float enemyEveryTimeMax, float firstEnemyTime) {
         this.maxEnemies = maxEnemies;
         this.enemyEveryTimeMax = enemyEveryTimeMax;
         this.enemyEveryTimeMin = enemyEveryTimeMin;
-        enemyNextTime = 0;
+        enemyNextTime = firstEnemyTime;
     }
 
     @Override
     public void update(float deltaTime, World world) {
-        if (enemyNextTime > 0) {
+        if (enemyNextTime >= 0) {
             enemyNextTime -= deltaTime;
             if (enemyNextTime <= 0) {
                 generateEnemy(world);
@@ -49,7 +49,7 @@ public class EnemyGenerator implements Updatable {
         return Math.abs(platform.position.y - world.player.position.y);
     }
 
-    private void generateEnemy(final World world) {
+    public void generateEnemy(final World world) {
         Enemy created = new Enemy(80, 230);
         Collections.sort(world.platforms, new Comparator<Platform>() {
             @Override

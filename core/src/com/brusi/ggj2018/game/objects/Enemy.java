@@ -50,8 +50,8 @@ public class Enemy extends Unit {
         arrow.mirror = mirror;
         float t = Math.abs(world.player.position.x - position.x) / 300;
         float v =  t == 0 ? 0 : (world.player.position.y - position.y - t * t * (-10)/2) / t;
-        v = Math.min(v, 50);
-        v = Math.max(v, -150);
+        v = Math.min(v, 300);
+        v = Math.max(v, -300);
         arrow.velocity.y = v + Utils.random2Range(15);
         arrow.shooter = this;
         world.addObject(arrow);

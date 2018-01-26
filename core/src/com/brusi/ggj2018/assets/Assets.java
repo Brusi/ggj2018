@@ -18,6 +18,7 @@ public class Assets {
     public Sprite title_die;
 
     public Sprite player;
+    public Sprite playerOutline;
     public Sprite enemy;
     public Sprite arrow;
     public Sprite platform;
@@ -37,6 +38,7 @@ public class Assets {
 
         TextureAtlas atlas = new TextureAtlas("objects/texture.txt");
         player = atlas.createSprite("hero");
+        playerOutline = atlas.createSprite("hero_outline");
         enemy = atlas.createSprite("bad_guy");
         arrow = atlas.createSprite("arrow");
         platform = atlas.createSprite("plat");

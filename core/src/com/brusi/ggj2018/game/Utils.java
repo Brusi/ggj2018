@@ -42,6 +42,10 @@ public class Utils {
         return (float) (bottom + Math.random() * (top - bottom));
     }
 
+    public static float vec2deg(float x, float y) {
+        return radToDeg((float)Math.atan2((double)x, (double)y));
+    }
+
     // Returns a random boolean.
     public static boolean randomBool() {
         return Math.random() > 0.5;
