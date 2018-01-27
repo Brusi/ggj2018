@@ -86,7 +86,12 @@ public class World {
     }
 
     private boolean lockObjectCreation = false;
-    private ArrayList<Object> awaitingObjects = new ArrayList<Object>();
+    private class ObjectToAdd
+    {
+        public Object obj;
+        public int layer;
+    }
+    private ArrayList<ObjectToAdd> awaitingObjects = new ArrayList<ObjectToAdd>();
     private ArrayList<Object> awaitingRemoveObjects = new ArrayList<Object>();
 
     public void addObject(Object object)
@@ -97,7 +102,10 @@ public class World {
     public void addObject(Object object, int layer)
     {
         if (lockObjectCreation) {
-            awaitingObjects.add(object);
+            ObjectToAdd o = new ObjectToAdd();
+            o.obj = object;
+            o.layer = layer;
+            awaitingObjects.add(o);
             return;
         }
         if (object instanceof Updatable)
@@ -145,8 +153,8 @@ public class World {
             object.update(deltaTime, this);
         }
         lockObjectCreation = false;
-        for (Object awaitingObject : awaitingObjects) {
-            addObject(awaitingObject);
+        for (ObjectToAdd awaitingObject : awaitingObjects) {
+            addObject(awaitingObject.obj, awaitingObject.layer);
         }
         awaitingObjects.clear();
         for (Object awaitingObject : awaitingRemoveObjects) {
@@ -189,22 +197,10 @@ public class World {
             if (obj instanceof  Arrow) {
                 Arrow arrow = (Arrow)obj;
                 addObject(new ArrowOnionSkin(arrow.position.x, arrow.position.y,
-                        arrow.getRotation(), arrow.mirror));
+                        arrow.getRotation(), arrow.mirror), 8);
             }
         }
     }
-
-    /*private void updateParticles(float deltaTime) {
-        for (Particle p : particles) {
-            p.update(deltaTime);
-        }
-        for (Iterator<Particle> it = particles.iterator(); it.hasNext();) {
-            Particle p = it.next();
-            if (!p.active) {
-                it.remove();
-            }
-        }
-    }*/
 
     private boolean energyLow = false;
 

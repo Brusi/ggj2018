@@ -27,7 +27,7 @@ public class ArrowOnionSkin extends Particle {
         super.update(deltaTime, world);
 
         if (stateTime > 1) {
-            this.active = false;
+            world.removeObject(this);
         }
     }
 

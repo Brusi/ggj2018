@@ -99,7 +99,7 @@ public class Enemy extends Unit {
         v = Math.max(v, -300);
         arrow.velocity.y = v + Utils.random2Range(15);
         arrow.shooter = this;
-        world.addObject(arrow);
+        world.addObject(arrow, 12);
     }
 
     /*@Override
