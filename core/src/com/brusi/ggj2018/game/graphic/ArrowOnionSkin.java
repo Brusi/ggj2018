@@ -15,7 +15,7 @@ public class ArrowOnionSkin extends Particle {
     float stateTime = 0;
 
     public ArrowOnionSkin(float x, float y, float rotation, boolean mirror) {
-        super(Assets.get().arrow, x, y, Vector2.Zero);
+        super(Assets.get().arrow_trail, x, y, Vector2.Zero);
         this.mirror = mirror;
         this.rotation = rotation;
     }
@@ -32,7 +32,7 @@ public class ArrowOnionSkin extends Particle {
 
     @Override
     public void render(Batch batch) {
-        float alpha = 0.3f - Utils.clamp01(stateTime * 2) * 0.3f;
+        float alpha = 1 - Utils.clamp01(stateTime * 2);
         sprite.setAlpha(alpha);
         sprite.setFlip(mirror, false);
         super.render(batch);

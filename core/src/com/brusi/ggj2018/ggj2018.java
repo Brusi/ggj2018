@@ -14,6 +14,7 @@ public class ggj2018 extends Game {
 	@Override
 	public void create () {
 		assets.init();
+		soundAssets.init();
 		touchToPoint = TouchToPoint.create();
 		setScreen(new TitleScreen());
 	}

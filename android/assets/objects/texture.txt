@@ -1,11 +1,18 @@
 texture.png
-size: 246, 812
+size: 246, 815
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arrow
   rotate: false
-  xy: 149, 795
+  xy: 101, 805
+  size: 48, 9
+  orig: 48, 9
+  offset: 0, 0
+  index: -1
+arrow_trail
+  rotate: false
+  xy: 151, 795
   size: 48, 9
   orig: 48, 9
   offset: 0, 0

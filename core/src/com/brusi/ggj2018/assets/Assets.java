@@ -22,6 +22,7 @@ public class Assets {
     public Sprite playerOutline;
     public Sprite enemy;
     public Sprite arrow;
+    public Sprite arrow_trail;
     public Sprite platform;
     public Sprite platform_left;
     public Sprite platform_right;
@@ -52,7 +53,7 @@ public class Assets {
     public void init() {
         bg = new Sprite(new Texture("objects/bg.jpg"));
         bg.setScale(1.12f);
-        title = new Sprite(new Texture("objects/title.png"));
+        title = new Sprite(new Texture("objects/opening.jpg"));
         title_die = new Sprite(new Texture("objects/title_die.png"));
 
         TextureAtlas atlas = new TextureAtlas("objects/texture.txt");
@@ -60,6 +61,7 @@ public class Assets {
         playerOutline = atlas.createSprite("hero_outline");
         enemy = atlas.createSprite("bad_guy");
         arrow = atlas.createSprite("arrow");
+        arrow_trail = atlas.createSprite("arrow_trail");
         platform = atlas.createSprite("plat");
         platform_left = atlas.createSprite("plat_left_end");
         platform_right = atlas.createSprite("plat_right_end");
