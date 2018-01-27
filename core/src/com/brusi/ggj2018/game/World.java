@@ -67,7 +67,19 @@ public class World {
         enemyGenerator = new EnemyGenerator(9, 1, 6, 2);
         addObject(enemyGenerator);
         addObject(playerTarget);
-        createPlatforms();
+        int level = Utils.randomInt(3);
+        if (level == 0)
+        {
+            createPlatforms();
+        }
+        else if (level == 1)
+        {
+            createPlatforms2();
+        }
+        else
+        {
+            createPlatforms3();
+        }
         addObject(player);
         energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
         addObject(energy, 15);
@@ -85,6 +97,38 @@ public class World {
         addPlatform(400, -100, 3);
         addPlatform(300, -200, 4);
         addPlatform(-250, -220, 3);
+    }
+
+    private void createPlatforms2()
+    {
+        addPlatform(0, -40, 3);
+        addPlatform(0, 60, 4);
+        addPlatform(0, -160, 4);
+        addPlatform(-200, 0, 2);
+        addPlatform(200, 0, 2);
+        addPlatform(350, 200, 3);
+        addPlatform(-350, 200, 3);
+        addPlatform(0, -250, 8);
+    }
+
+    private void createPlatforms3()
+    {
+        addPlatform(0, -40, 6);
+        addPlatform(-70, 250, 2);
+        addPlatform(-0, 170, 2);
+        addPlatform(200, -220, 2);
+        addPlatform(250, 250, 2);
+        addPlatform(-150, 100, 2);
+        addPlatform(400, -180, 2);
+        addPlatform(-250, -170, 2);
+        addPlatform(350, -80, 2);
+        addPlatform(230, -120, 2);
+        addPlatform(-290, 60, 2);
+        addPlatform(-280, 190, 2);
+        addPlatform(-90, -270, 2);
+        addPlatform(280, 40, 2);
+        addPlatform(230, 120, 2);
+
     }
 
     private Platform addPlatform(float x, float y, int width) {
