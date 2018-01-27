@@ -6,13 +6,14 @@ import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.game.WorldRenderer;
+import com.brusi.ggj2018.utils.Animation;
 import com.brusi.ggj2018.utils.SpriteContainer;
 
 /**
  * Created by Asaf on 26/01/2018.
  */
 
-class Unit extends DynamicGameObject implements Renderable, Updatable {
+class Unit extends DynamicGameObject implements Renderable, Updatable, Animation.AnimationCallback, Animation.AnimationRenderer {
 
 
 
@@ -20,43 +21,23 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
     public static final int BASE_FRACTION = 4000;
     public boolean grounded = false;
     public boolean dead = false;
-    protected SpriteContainer[] states;
-    protected int currentState = 0;
-    protected float currentStateTime = 1;
-    protected boolean loop = true;
-    protected int nextState = 0;
-    protected float nextStateLength = 1;
-    protected float currentTime = 0;
 
+    public Animation animation;
     public boolean mirror = false;
 
     public Unit(float x, float y, float width, float height, SpriteContainer[] states) {
         super(x, y, width, height);
-        this.states = states;
+        animation = new Animation(states, this);
     }
 
     public Unit(float x, float y, float width, float height, Sprite sprite) {
         super(x, y, width, height);
-        this.states = new SpriteContainer[] {SpriteContainer.get(sprite)};
+        animation = new Animation(new SpriteContainer[] {SpriteContainer.get(sprite)}, this);
     }
 
-    public void play(int state, float  time) {
-        loop = true;
-        currentState = state;
-        currentStateTime = time;
-        currentTime = 0;
-    }
 
-    public void play(int state, float time, int nextState, float nextStateLength) {
-        loop = false;
-        currentState = state;
-        currentStateTime = time;
-        currentTime = 0;
-        this.nextState = nextState;
-        this.nextStateLength = nextStateLength;
-    }
 
-    protected void onStateDone() {}
+    public void onStateDone() {}
 
     protected boolean collidePlatform(World world) {
         for (Platform platform : world.platforms) {
@@ -87,19 +68,8 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
 
         checkDeath();
 
-        if (currentTime > currentStateTime) {
-            onStateDone();
-            if (loop) {
-                currentTime = 0;
-            } else {
-                currentTime = 0;
-                currentState = nextState;
-                currentStateTime = nextStateLength;
-                loop = true;
-            }
-        } else {
-            currentTime += deltaTime;
-        }
+        animation.update(deltaTime);
+
     }
 
     protected float getDamping() {
@@ -118,9 +88,7 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
 
     @Override
     public void render(Batch batch) {
-        int index = Math.min(states[currentState].size() - 1, (int) Math.floor((currentTime / currentStateTime) * states[currentState].size()));
-        Sprite sprite = states[currentState].get(index);
-        renderSprite(batch, sprite);
+        animation.render(batch);
     }
 
     public void renderSprite(Batch batch, Sprite sprite) {

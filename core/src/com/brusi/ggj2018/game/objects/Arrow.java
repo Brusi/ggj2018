@@ -41,9 +41,13 @@ public class Arrow extends Unit {
                     Unit u = (Unit) obj;
                     float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
                     if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                        boolean wasDead = u.dead;
                         u.dead = true;
                         if (u == world.player) {
                             stuck = true;
+                            if (!wasDead) {
+                                world.player.playDie();
+                            }
                         } else {
                             world.removeObject(this);
                         }

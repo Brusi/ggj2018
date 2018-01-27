@@ -223,6 +223,8 @@ public class World {
             Vector2 diff = controls.getDiff();
             playerTarget.on = true;
             playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
+            player.mirror = diff.x < 0;
+            playerTarget.mirror = player.mirror;
         }
     }
 

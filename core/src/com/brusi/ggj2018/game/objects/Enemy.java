@@ -65,7 +65,7 @@ public class Enemy extends Unit {
         }
         if (state == State.IDLE && stateTime >= nextShoot) {
             setState(State.SHOOTING);
-            play(1, PREPARE_SHOT_TIME, 0, 1);
+            animation.play(1, PREPARE_SHOT_TIME, 0, 1);
         }
         if (state == State.SHOOTING) {
             lookAtPlayer(world);

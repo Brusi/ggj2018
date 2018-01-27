@@ -9,6 +9,7 @@ import com.brusi.ggj2018.assets.Assets;
 
 public class PlayerTarget extends StaticGraphicObject {
     public boolean on;
+    public boolean mirror;
 
     public PlayerTarget() {
         super(Assets.get().playerOutline, 0, 0);
@@ -18,6 +19,7 @@ public class PlayerTarget extends StaticGraphicObject {
     public void render(Batch batch) {
         if (!on) return;
         sprite.setAlpha(0.5f);
+        sprite.setFlip(mirror, false);
         super.render(batch);
     }
 }
