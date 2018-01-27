@@ -6,24 +6,57 @@ import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.game.WorldRenderer;
+import com.brusi.ggj2018.utils.SpriteContainer;
 
 /**
  * Created by Asaf on 26/01/2018.
  */
 
 class Unit extends DynamicGameObject implements Renderable, Updatable {
+
+
+
     public static final int BASE_ACCEL = -2000;
     public static final int BASE_FRACTION = 4000;
     public boolean grounded = false;
     public boolean dead = false;
-    protected Sprite sprite;
+    protected SpriteContainer[] states;
+    protected int currentState = 0;
+    protected float currentStateTime = 1;
+    protected boolean loop = true;
+    protected int nextState = 0;
+    protected float nextStateLength = 1;
+    protected float currentTime = 0;
 
     public boolean mirror = false;
 
+    public Unit(float x, float y, float width, float height, SpriteContainer[] states) {
+        super(x, y, width, height);
+        this.states = states;
+    }
+
     public Unit(float x, float y, float width, float height, Sprite sprite) {
         super(x, y, width, height);
-        this.sprite = sprite;
+        this.states = new SpriteContainer[] {SpriteContainer.get(sprite)};
     }
+
+    public void play(int state, float  time) {
+        loop = true;
+        currentState = state;
+        currentStateTime = time;
+        currentTime = 0;
+    }
+
+    public void play(int state, float time, int nextState, float nextStateLength) {
+        loop = false;
+        currentState = state;
+        currentStateTime = time;
+        currentTime = 0;
+        this.nextState = nextState;
+        this.nextStateLength = nextStateLength;
+    }
+
+    protected void onStateDone() {}
 
     protected boolean collidePlatform(World world) {
         for (Platform platform : world.platforms) {
@@ -53,6 +86,20 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
         }
 
         checkDeath();
+
+        if (currentTime > currentStateTime) {
+            onStateDone();
+            if (loop) {
+                currentTime = 0;
+            } else {
+                currentTime = 0;
+                currentState = nextState;
+                currentStateTime = nextStateLength;
+                loop = true;
+            }
+        } else {
+            currentTime += deltaTime;
+        }
     }
 
     protected float getDamping() {
@@ -71,6 +118,12 @@ class Unit extends DynamicGameObject implements Renderable, Updatable {
 
     @Override
     public void render(Batch batch) {
+        int index = Math.min(states[currentState].size() - 1, (int) Math.floor((currentTime / currentStateTime) * states[currentState].size()));
+        Sprite sprite = states[currentState].get(index);
+        renderSprite(batch, sprite);
+    }
+
+    public void renderSprite(Batch batch, Sprite sprite) {
         sprite.setFlip(mirror, false);
         sprite.setAlpha(1);
         sprite.setRotation(getRotation());
