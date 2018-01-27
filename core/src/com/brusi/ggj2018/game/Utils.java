@@ -116,13 +116,11 @@ public class Utils {
     }
 
     public static String getTimeText(float time) {
-        return getTimeText((int) Math.floor(time));
-    }
-
-    public static String getTimeText(int time) {
-        int minutes = time / 60;
-        int seconds = time % 60;
-        return "" + minutes + ":" + ((seconds < 10) ? "0" : "") + seconds;
+        int int_time = (int) Math.floor(time);
+        int minutes = int_time / 60;
+        int seconds = int_time % 60;
+        int centis = (int) Math.floor(time * 100) % 100;
+        return "" + minutes + ":" + Utils.pad0(seconds) + ":" + Utils.pad0(centis);
     }
 
     public static String pad0(int n) {

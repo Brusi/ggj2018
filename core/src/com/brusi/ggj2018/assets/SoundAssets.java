@@ -15,8 +15,6 @@ public class SoundAssets {
 
 	public Music music1A;
 	public Music music1B;
-	public Music music2A;
-	public Music music2B;
 
 	public Sound playerDash;
 
@@ -31,8 +29,6 @@ public class SoundAssets {
 	public void init() {
 		music1A = newMusic("teleporting_1_a.mp3");
 		music1B = newMusic("teleporting_1_b.mp3");
-		music2A = newMusic("teleporting_2_a.mp3");
-		music2B = newMusic("teleporting_2_b.mp3");
 	}
 
 	public static SoundAssets get() {
@@ -84,7 +80,9 @@ public class SoundAssets {
 
     private Music newMusic(String filename) {
         String path = "sounds/" + filename;
-	    return Gdx.audio.newMusic(Gdx.files.internal(path));
+		Music music = Gdx.audio.newMusic(Gdx.files.internal(path));
+		music.setLooping(true);
+		return music;
     }
 
 	public void stopSound(Sound sound) {
@@ -114,8 +112,6 @@ public class SoundAssets {
 	private  void stopAllMusic() {
 		music1A.stop();
         music1B.stop();
-		music2A.stop();
-		music2B.stop();
 	}
 
 	public  void setPitch(float newPitch) {
@@ -162,10 +158,6 @@ public class SoundAssets {
 	public void playGameMusics() {
 		music1A.play();
 		music1B.play();
-		music2A.play();
-		music2A.setVolume(0);
-		music2B.play();
-		music2B.setVolume(0);
 	}
 
 //	public void pauseMusic() {
