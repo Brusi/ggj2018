@@ -93,10 +93,13 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         }
         if (state == State.IDLE && stateTime >= nextShoot) {
             setState(State.SHOOTING);
+            lookAtPlayer(world);
+            shootToX = world.player.position.x;
+            shootToY = world.player.position.y;
+
             animation.play(1, PREPARE_SHOT_TIME, 0, 1);
         }
         if (state == State.SHOOTING) {
-            lookAtPlayer(world);
             if (stateTime > PREPARE_SHOT_TIME) {
                 shoot(world);
                 nextShoot = Utils.randomRange(0.5f, 4f);
@@ -115,14 +118,17 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         this.stateTime = 0;
     }
 
+    private float shootToX;
+    private float shootToY;
+
     private void shoot(World world) {
         Gdx.app.log("DEBUG", "shoot(world);");
-        lookAtPlayer(world);
+        //lookAtPlayer(world);
         Arrow arrow = new Arrow(position.x, position.y);
-        arrow.velocity.x = Math.signum(world.player.position.x - position.x) * 300 + Utils.random2Range(30);
+        arrow.velocity.x = Math.signum(shootToX - position.x) * 300 + Utils.random2Range(30);
         arrow.mirror = mirror;
-        float t = Math.abs(world.player.position.x - position.x) / 300;
-        float v = t == 0 ? 0 : (world.player.position.y - position.y - t * t * (-10) / 2) / t;
+        float t = Math.abs(shootToX - position.x) / 300;
+        float v = t == 0 ? 0 : (shootToY - position.y - t * t * (-10) / 2) / t;
         v = Math.min(v, 300);
         v = Math.max(v, -300);
         arrow.velocity.y = v + Utils.random2Range(15);
