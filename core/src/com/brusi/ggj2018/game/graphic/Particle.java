@@ -23,18 +23,20 @@ public class Particle extends StaticGraphicObject {
         this.vel = new Vector2(vel);
     }
 
-    public void update(float deltaTime) {
+    @Override
+    public void update(float deltaTime, World world) {
         this.position.x += vel.x * deltaTime;
         this.position.y += vel.y * deltaTime;
 
         if (Utils.outOfBounds(this.position)) {
-            this.active = false;
+            world.removeObject(this);
         }
+        super.update(deltaTime, world);
     }
 
     @Override
-    public void render(Batch batch) {
+    public void renderSprite(Batch batch, Sprite sprite) {
         sprite.setRotation(rotation);
-        super.render(batch);
+        super.renderSprite(batch, sprite);
     }
 }

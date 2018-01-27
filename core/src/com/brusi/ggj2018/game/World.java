@@ -22,6 +22,7 @@ import com.brusi.ggj2018.utils.Controls;
 import com.brusi.ggj2018.utils.EventQueue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -35,9 +36,10 @@ public class World {
     final public PlayerTarget playerTarget = new PlayerTarget();
 
     public ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
-    protected ArrayList<Renderable> objectsToRender = new ArrayList<Renderable>();
+    protected ArrayList<Renderable>[] objectsToRender;
+    private HashMap<Object, Integer> objectsToLayer = new HashMap<Object, Integer>();
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
-    public ArrayList<Particle> particles = new ArrayList<Particle>();
+    //public ArrayList<Particle> particles = new ArrayList<Particle>();
 
     Controls controls;
 
@@ -49,13 +51,17 @@ public class World {
 
     public World(Controls controls)
     {
+        objectsToRender = new ArrayList[20];
+        for (int i = 0; i < objectsToRender.length; i++) {
+            objectsToRender[i] = new ArrayList<Renderable>();
+        }
         this.controls = controls;
         enemyGenerator = new EnemyGenerator(9, 1, 6, 2);
         addObject(enemyGenerator);
-        objectsToRender.add(playerTarget);
+        addObject(playerTarget);
         createPlatforms();
         addObject(player);
-        addObject(energy);
+        addObject(energy, 15);
     }
 
     private void createPlatforms()
@@ -85,6 +91,11 @@ public class World {
 
     public void addObject(Object object)
     {
+        addObject(object, 10);
+    }
+
+    public void addObject(Object object, int layer)
+    {
         if (lockObjectCreation) {
             awaitingObjects.add(object);
             return;
@@ -95,7 +106,8 @@ public class World {
         }
         if (object instanceof Renderable)
         {
-            objectsToRender.add((Renderable)object);
+            objectsToRender[layer].add((Renderable)object);
+            objectsToLayer.put(object, layer);
         }
     }
 
@@ -110,11 +122,15 @@ public class World {
         }
         if (object instanceof Renderable)
         {
-            objectsToRender.remove((Renderable)object);
+            if (objectsToLayer.containsKey(object)) {
+                int layer = objectsToLayer.get(object);
+                objectsToRender[layer].remove((Renderable) object);
+            }
         }
     }
 
     void update(float deltaTime) {
+        lockObjectCreation = true;
         updateCheats(deltaTime);
 
         bulletTimeEvents.update(deltaTime);
@@ -122,8 +138,8 @@ public class World {
         deltaTime = getBulletTime(deltaTime);
         gameTime += deltaTime;
         updateInput(deltaTime);
-        lockObjectCreation = true;
-        updateParticles(deltaTime);
+
+        //updateParticles(deltaTime);
 
         for (Updatable object : objectsToUpdate) {
             object.update(deltaTime, this);
@@ -172,13 +188,13 @@ public class World {
         for (Updatable obj : objectsToUpdate) {
             if (obj instanceof  Arrow) {
                 Arrow arrow = (Arrow)obj;
-                particles.add(new ArrowOnionSkin(arrow.position.x, arrow.position.y,
+                addObject(new ArrowOnionSkin(arrow.position.x, arrow.position.y,
                         arrow.getRotation(), arrow.mirror));
             }
         }
     }
 
-    private void updateParticles(float deltaTime) {
+    /*private void updateParticles(float deltaTime) {
         for (Particle p : particles) {
             p.update(deltaTime);
         }
@@ -188,7 +204,7 @@ public class World {
                 it.remove();
             }
         }
-    }
+    }*/
 
     private boolean energyLow = false;
 
@@ -231,7 +247,7 @@ public class World {
     private void createTeleportParticles(Vector2 position, int number, float time, Array<Sprite> sprites) {
         Gdx.app.log("DEBUG", "Add teleport particles.");
         for (int i=0; i < number; i++) {
-            particles.add(new TeleportParticle(position.x, position.y, time, sprites));
+            addObject(new TeleportParticle(position.x, position.y, time, sprites));
         }
     }
 
@@ -241,7 +257,7 @@ public class World {
 
     public void addBoneParticles(float x, float y) {
         for (int i=0; i < 5; i++) {
-            particles.add(new BoneParticle(x, y));
+            addObject(new BoneParticle(x, y));
         }
     }
 }

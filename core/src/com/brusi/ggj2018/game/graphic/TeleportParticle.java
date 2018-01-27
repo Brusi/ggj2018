@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.utils.BatchUtils;
 
 /**
@@ -35,19 +36,19 @@ public class TeleportParticle extends Particle {
     }
 
     @Override
-    public void render(Batch batch) {
+    public void renderSprite(Batch batch, Sprite sprite) {
         BatchUtils.setBlendFuncAdd(batch);
         float tint = Utils.clamp01(totalTime - stateTime);
         sprite.setColor(tint, tint, tint, 1);
-        super.render(batch);
+        super.renderSprite(batch, sprite);
         BatchUtils.setBlendFuncNormal(batch);
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(float deltaTime, World world) {
         stateTime += deltaTime;
         vel.y += GRAVITY * deltaTime;
         rotation += rotationSpeed * deltaTime;
-        super.update(deltaTime);
+        super.update(deltaTime, world);
     }
 }

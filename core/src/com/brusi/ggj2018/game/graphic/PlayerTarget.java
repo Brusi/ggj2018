@@ -1,6 +1,7 @@
 package com.brusi.ggj2018.game.graphic;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 
 /**
@@ -16,10 +17,10 @@ public class PlayerTarget extends StaticGraphicObject {
     }
 
     @Override
-    public void render(Batch batch) {
+    public void renderSprite(Batch batch, Sprite sprite) {
         if (!on) return;
         sprite.setAlpha(0.5f);
         sprite.setFlip(mirror, false);
-        super.render(batch);
+        super.renderSprite(batch, sprite);
     }
 }

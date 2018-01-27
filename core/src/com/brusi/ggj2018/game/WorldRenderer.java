@@ -34,11 +34,10 @@ public class WorldRenderer {
 
         batch.begin();
         Utils.drawCenter(batch, Assets.get().bg, 0, 0);
-        for (Renderable object : world.objectsToRender) {
-            object.render(batch);
-        }
-        for (Particle p : world.particles) {
-            p.render(batch);
+        for (int i = 0; i < world.objectsToRender.length; i++) {
+            for (Renderable object : world.objectsToRender[i]) {
+                object.render(batch);
+            }
         }
         batch.end();
     }

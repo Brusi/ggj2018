@@ -13,7 +13,7 @@ import com.brusi.ggj2018.utils.SpriteContainer;
  * Created by Asaf on 26/01/2018.
  */
 
-class Unit extends DynamicGameObject implements Renderable, Updatable, Animation.AnimationCallback, Animation.AnimationRenderer {
+class Unit extends DynamicGameObject implements Renderable, Updatable, Animation.AnimationRenderer {
 
 
 
@@ -34,10 +34,6 @@ class Unit extends DynamicGameObject implements Renderable, Updatable, Animation
         super(x, y, width, height);
         animation = new Animation(new SpriteContainer[] {SpriteContainer.get(sprite)}, this);
     }
-
-
-
-    public void onStateDone() {}
 
     protected boolean collidePlatform(World world) {
         for (Platform platform : world.platforms) {

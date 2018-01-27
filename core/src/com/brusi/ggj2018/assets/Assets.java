@@ -28,7 +28,7 @@ public class Assets {
 
     public Sprite bar;
     public Sprite bar_bg;
-    public Sprite teleport_effect;
+    public Array<Sprite> teleport_effect;
 
     public Array<Sprite> teleport_particle;
     public Array<Sprite> disappear_teleport_particle;
@@ -76,7 +76,7 @@ public class Assets {
         bar = atlas.createSprite("bar");
         bar_bg = atlas.createSprite("bar_bg");
 
-        teleport_effect = atlas.createSprite("port");
+        teleport_effect = atlas.createSprites("port");
 
         TextureAtlas add_atlas = new TextureAtlas("objects/addeffects.txt");
         teleport_particle = add_atlas.createSprites("teleport_particle");

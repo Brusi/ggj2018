@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.game.World;
 
 /**
  * Created by pc on 1/26/2018.
@@ -21,9 +22,9 @@ public class ArrowOnionSkin extends Particle {
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(float deltaTime, World world) {
         stateTime += deltaTime;
-        super.update(deltaTime);
+        super.update(deltaTime, world);
 
         if (stateTime > 1) {
             this.active = false;
@@ -31,10 +32,10 @@ public class ArrowOnionSkin extends Particle {
     }
 
     @Override
-    public void render(Batch batch) {
+    public void renderSprite(Batch batch, Sprite sprite) {
         float alpha = 0.3f - Utils.clamp01(stateTime * 2) * 0.3f;
         sprite.setAlpha(alpha);
         sprite.setFlip(mirror, false);
-        super.render(batch);
+        super.renderSprite(batch, sprite);
     }
 }

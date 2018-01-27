@@ -1,9 +1,11 @@
 package com.brusi.ggj2018.game.graphic;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.utils.BatchUtils;
 
 /**
@@ -30,16 +32,16 @@ public class BoneParticle extends Particle {
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(float deltaTime, World world) {
         stateTime += deltaTime;
         vel.y += GRAVITY * deltaTime;
         rotation += rotationSpeed * deltaTime;
-        super.update(deltaTime);
+        super.update(deltaTime, world);
     }
 
     @Override
-    public void render(Batch batch) {
+    public void renderSprite(Batch batch, Sprite sprite) {
         sprite.setScale(0.5f);
-        super.render(batch);
+        super.renderSprite(batch, sprite);
     }
 }
