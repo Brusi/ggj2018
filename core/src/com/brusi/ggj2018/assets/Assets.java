@@ -2,6 +2,7 @@ package com.brusi.ggj2018.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
@@ -27,11 +28,22 @@ public class Assets {
 
     public Sprite bar;
     public Sprite bar_bg;
+    public Sprite teleport_effect;
 
     public Array<Sprite> teleport_particle;
     public Array<Sprite> disappear_teleport_particle;
     public Array<Sprite> bones;
-    public Array<Sprite> enemyShoot;
+
+    public Array<Sprite> player_die;
+    public Array<Sprite> player_idle;
+    public Array<Sprite> player_land;
+    public Array<Sprite> player_teleport;
+
+    public Array<Sprite> enemy_shoot;
+    public Array<Sprite> enemy_die;
+
+
+    public BitmapFont timeFont;
 
     public static Assets get() {
         return ((ggj2018)Gdx.app.getApplicationListener()).assets;
@@ -52,14 +64,25 @@ public class Assets {
         platform_left = atlas.createSprite("plat_left_end");
         platform_right = atlas.createSprite("plat_right_end");
         bones = atlas.createSprites("bone");
-        enemyShoot = atlas.createSprites("bad_guy_draw");
+
+        player_die = atlas.createSprites("hero_die");
+        player_idle = atlas.createSprites("hero_idle");
+        player_land = atlas.createSprites("hero_land");
+        player_teleport = atlas.createSprites("hero_port");
+
+        enemy_shoot = atlas.createSprites("bad_guy_draw");
+        enemy_die = atlas.createSprites("bad_guy_death");
 
         bar = atlas.createSprite("bar");
         bar_bg = atlas.createSprite("bar_bg");
 
+        teleport_effect = atlas.createSprite("port");
+
         TextureAtlas add_atlas = new TextureAtlas("objects/addeffects.txt");
         teleport_particle = add_atlas.createSprites("teleport_particle");
         disappear_teleport_particle = add_atlas.createSprites("disappear_particle");
+
+        timeFont = new BitmapFont(Gdx.files.internal("fonts/volcano_newquest.fnt"), false);
     }
 
     public void dispose() {

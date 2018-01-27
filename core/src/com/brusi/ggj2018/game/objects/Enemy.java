@@ -22,6 +22,7 @@ public class Enemy extends Unit {
         SHOOTING,
         JUMPING_IN
     }
+
     State state = State.JUMPING_IN;
     float stateTime = 0;
 
@@ -30,7 +31,7 @@ public class Enemy extends Unit {
     public Enemy(float x, float y) {
         super(x, y, 40, 76, new SpriteContainer[] {
                 SpriteContainer.get(Assets.get().enemy),
-                SpriteContainer.get(Assets.get().enemyShoot)
+                SpriteContainer.get(Assets.get().enemy_shoot)
         });
         accel.y = BASE_ACCEL;
     }

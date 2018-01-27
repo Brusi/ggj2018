@@ -15,7 +15,7 @@ import com.brusi.ggj2018.utils.TouchToPoint;
 
 public class GameScreen extends ScreenAdapter implements Screen {
     WorldRenderer worldRenderer = new WorldRenderer();
-    UiRenderer uiRenderer = new UiRenderer();
+    com.brusi.ggj2018.ui.UiRenderer uiRenderer = new com.brusi.ggj2018.ui.UiRenderer();
     private Controls controls;
     World world;
 

@@ -1,110 +1,327 @@
 texture.png
-size: 202, 200
+size: 246, 822
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arrow
   rotate: false
-  xy: 151, 75
+  xy: 1, 813
   size: 48, 6
   orig: 48, 6
   offset: 0, 0
   index: -1
 bad_guy
   rotate: false
-  xy: 45, 1
+  xy: 151, 451
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: -1
+bad_guy_death
+  rotate: false
+  xy: 1, 1
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 1
+bad_guy_death
+  rotate: false
+  xy: 1, 79
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 2
+bad_guy_death
+  rotate: false
+  xy: 1, 157
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 3
+bad_guy_death
+  rotate: false
+  xy: 1, 235
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 4
+bad_guy_death
+  rotate: false
+  xy: 1, 313
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 5
+bad_guy_death
+  rotate: false
+  xy: 1, 391
+  size: 138, 76
+  orig: 138, 76
+  offset: 0, 0
+  index: 6
 bad_guy_draw
   rotate: false
-  xy: 93, 1
+  xy: 199, 451
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 1
 bad_guy_draw
   rotate: false
-  xy: 55, 99
+  xy: 151, 529
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 2
 bad_guy_draw
   rotate: false
-  xy: 103, 99
+  xy: 199, 529
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 3
 bad_guy_draw
   rotate: false
-  xy: 151, 83
+  xy: 151, 607
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 4
 bar
   rotate: false
-  xy: 1, 1
+  xy: 199, 607
   size: 20, 100
   orig: 20, 100
   offset: 0, 0
   index: -1
 bar_bg
   rotate: false
-  xy: 23, 1
+  xy: 221, 607
   size: 20, 100
   orig: 20, 100
   offset: 0, 0
   index: -1
 bone
   rotate: false
-  xy: 165, 161
+  xy: 205, 709
   size: 19, 38
   orig: 19, 38
   offset: 0, 0
   index: 1
 bone
   rotate: false
-  xy: 186, 161
+  xy: 226, 709
   size: 15, 34
   orig: 15, 34
   offset: 0, 0
   index: 2
 hero
   rotate: false
-  xy: 151, 1
+  xy: 155, 709
   size: 48, 72
   orig: 48, 72
   offset: 0, 0
   index: -1
+hero_die
+  rotate: false
+  xy: 141, 1
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+hero_die
+  rotate: false
+  xy: 1, 469
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+hero_die
+  rotate: false
+  xy: 141, 87
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+hero_die
+  rotate: false
+  xy: 191, 1
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+hero_idle
+  rotate: false
+  xy: 141, 1
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+hero_idle
+  rotate: false
+  xy: 1, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+hero_idle
+  rotate: false
+  xy: 51, 469
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+hero_idle
+  rotate: false
+  xy: 1, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+hero_land
+  rotate: false
+  xy: 141, 173
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+hero_land
+  rotate: false
+  xy: 191, 87
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+hero_land
+  rotate: false
+  xy: 1, 641
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+hero_land
+  rotate: false
+  xy: 51, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+hero_land
+  rotate: false
+  xy: 141, 1
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 5
 hero_outline
   rotate: false
-  xy: 1, 103
+  xy: 101, 727
   size: 52, 76
   orig: 52, 76
   offset: 0, 0
   index: -1
+hero_port
+  rotate: false
+  xy: 141, 259
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+hero_port
+  rotate: false
+  xy: 51, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+hero_port
+  rotate: false
+  xy: 191, 173
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+hero_port
+  rotate: false
+  xy: 1, 727
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+hero_port
+  rotate: false
+  xy: 51, 641
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 5
 plat
   rotate: false
-  xy: 1, 181
+  xy: 141, 431
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_left_end
   rotate: false
-  xy: 45, 79
+  xy: 155, 783
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_right_end
   rotate: false
-  xy: 83, 177
+  xy: 155, 803
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
+port
+  rotate: false
+  xy: 141, 345
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+port
+  rotate: false
+  xy: 191, 259
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+port
+  rotate: false
+  xy: 51, 727
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+port
+  rotate: false
+  xy: 191, 345
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+port
+  rotate: false
+  xy: 101, 469
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 5
+port
+  rotate: false
+  xy: 101, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 6
+port
+  rotate: false
+  xy: 101, 641
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 7
