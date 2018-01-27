@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
+import com.brusi.ggj2018.game.graphic.Particle;
+import com.brusi.ggj2018.utils.SpriteContainer;
 
 /**
  * Created by pc on 1/26/2018.
@@ -16,9 +18,9 @@ public class Enemy extends Unit {
     public static final float PREPARE_SHOT_TIME = 0.5f;
 
     enum State {
-        JUMPING_IN,
         IDLE,
-        SHOOTING
+        SHOOTING,
+        JUMPING_IN
     }
 
     State state = State.JUMPING_IN;
@@ -27,7 +29,10 @@ public class Enemy extends Unit {
     public Platform targetPlatform = null;
 
     public Enemy(float x, float y) {
-        super(x, y, 40, 76, Assets.get().enemy);
+        super(x, y, 40, 76, new SpriteContainer[] {
+                SpriteContainer.get(Assets.get().enemy),
+                SpriteContainer.get(Assets.get().enemy_shoot)
+        });
         accel.y = BASE_ACCEL;
     }
 
@@ -60,6 +65,7 @@ public class Enemy extends Unit {
         }
         if (state == State.IDLE && stateTime >= nextShoot) {
             setState(State.SHOOTING);
+            play(1, PREPARE_SHOT_TIME, 0, 1);
         }
         if (state == State.SHOOTING) {
             lookAtPlayer(world);
@@ -96,7 +102,7 @@ public class Enemy extends Unit {
         world.addObject(arrow);
     }
 
-    @Override
+    /*@Override
     public void render(Batch batch) {
         sprite = computeSprite();
         super.render(batch);
@@ -106,7 +112,7 @@ public class Enemy extends Unit {
         if (state == State.IDLE || state == State.JUMPING_IN) {
             return Assets.get().enemy;
         }
-        int index = Math.min(3, (int) Math.floor((stateTime / PREPARE_SHOT_TIME) * Assets.get().enemy_shoot.size));
-        return sprite = Assets.get().enemy_shoot.get(index);
-    }
+        int index = Math.min(Assets.get().enemyShoot.size - 1, (int) Math.floor((stateTime / PREPARE_SHOT_TIME) * Assets.get().enemyShoot.size));
+        return sprite = Assets.get().enemyShoot.get(index);
+    }*/
 }
