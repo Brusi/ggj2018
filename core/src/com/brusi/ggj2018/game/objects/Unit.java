@@ -13,7 +13,7 @@ import com.brusi.ggj2018.utils.SpriteContainer;
  * Created by Asaf on 26/01/2018.
  */
 
-class Unit extends DynamicGameObject implements Renderable, Updatable, Animation.AnimationRenderer {
+public class Unit extends DynamicGameObject implements Renderable, Updatable, Animation.AnimationRenderer {
 
 
 

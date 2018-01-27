@@ -2,6 +2,7 @@ package com.brusi.ggj2018.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -9,6 +10,7 @@ import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
 import com.brusi.ggj2018.game.graphic.BoneParticle;
+import com.brusi.ggj2018.game.graphic.FadeOutEffect;
 import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.SinglePlayParticle;
@@ -233,7 +235,8 @@ public class World {
                 // Teleport is too short!
                 return;
             }
-            createTeleportParticles(player.position, 8, 0.5f, Assets.get().disappear_teleport_particle);
+            //createTeleportParticles(player.position, 8, 0.5f, Assets.get().disappear_teleport_particle);
+            addObject(new FadeOutEffect(player, Color.BLACK, 0.3f), 9);
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
             //createTeleportParticles(player.position, 20, 1, Assets.get().teleport_particle);
             addObject(new SinglePlayParticle(Assets.get().teleport_effect, player.position.x, player.position.y - 10, 0.3f), 14);

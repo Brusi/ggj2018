@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
+import com.brusi.ggj2018.game.graphic.FadeOutEffect;
 import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.utils.Animation;
 import com.brusi.ggj2018.utils.SpriteContainer;
@@ -68,6 +69,7 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         stateTime += deltaTime;
         super.update(deltaTime, world);
         if (state == State.AFTER_DYING) {
+            world.addObject(new FadeOutEffect(this, Assets.get().enemy_die.get(Assets.get().enemy_die.size - 1), null, 0.8f), 4);
             world.removeObject(this);
             return;
         }

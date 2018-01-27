@@ -42,6 +42,7 @@ public class Arrow extends Unit {
                     if (!u.active) continue;
                     float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
                     if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                        //if (u == world.player) continue;
                         boolean wasDead = u.dead;
                         u.dead = true;
                         if (u == world.player) {

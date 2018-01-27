@@ -67,9 +67,14 @@ public class Animation {
         }
     }
 
-    public void render(Batch batch) {
+    public Sprite getCurrent()
+    {
         int index = Math.min(states[currentState].size() - 1, (int) Math.floor((currentTime / currentStateTime) * states[currentState].size()));
-        Sprite sprite = states[currentState].get(index);
+        return states[currentState].get(index);
+    }
+
+    public void render(Batch batch) {
+        Sprite sprite = getCurrent();
         obj.renderSprite(batch, sprite);
     }
 }
