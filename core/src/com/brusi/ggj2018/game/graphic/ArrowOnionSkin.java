@@ -33,7 +33,7 @@ public class ArrowOnionSkin extends Particle {
 
     @Override
     public void renderSprite(Batch batch, Sprite sprite) {
-        float alpha = 1 - Utils.clamp01(stateTime * 2);
+        float alpha = 0.4f * (1 - Utils.clamp01(stateTime * 2));
         sprite.setAlpha(alpha);
         sprite.setFlip(mirror, false);
         super.renderSprite(batch, sprite);

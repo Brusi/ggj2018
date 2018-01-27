@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.assets.Assets;
@@ -38,7 +39,7 @@ public class World {
     public static final float BULLET_TIME_RATIO = 0.2f;
     private final EnemyGenerator enemyGenerator;
     public Player player = new Player(0, 0);
-    public Energy energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
+    public Energy energy;
     final public PlayerTarget playerTarget = new PlayerTarget();
 
     public ArrayList<Updatable> objectsToUpdate = new ArrayList<Updatable>();
@@ -54,6 +55,7 @@ public class World {
     final EventQueue bulletTimeEvents = new EventQueue();
 
     public float gameTime = 0;
+    public int killcount = 0;
 
     public World(Controls controls)
     {
@@ -67,6 +69,7 @@ public class World {
         addObject(playerTarget);
         createPlatforms();
         addObject(player);
+        energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
         addObject(energy, 15);
     }
 
