@@ -75,6 +75,9 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         }
         if (dead) {
             if (state != State.DYING) {
+                if (!world.isDead()) {
+                    ++world.killcount;
+                }
                 world.addBoneParticles(position.x, position.y);
                 active = false;
                 setState(State.DYING);
