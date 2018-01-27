@@ -76,7 +76,7 @@ public class Unit extends DynamicGameObject implements Renderable, Updatable, An
 
     private void checkDeath() {
         if (position.y < -WorldRenderer.FRUSTUM_HEIGHT / 2) {
-            dead = true;
+            kill();
         }
     }
 
@@ -98,5 +98,9 @@ public class Unit extends DynamicGameObject implements Renderable, Updatable, An
 
     float getRotation() {
         return 0;
+    }
+
+    public void kill() {
+        dead = true;
     }
 }

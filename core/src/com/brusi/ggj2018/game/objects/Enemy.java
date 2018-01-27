@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.game.graphic.FadeOutEffect;
@@ -48,6 +49,7 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
                 SpriteContainer.get(Assets.get().enemy_die)
         });
         accel.y = BASE_ACCEL;
+        SoundAssets.get().playRandomSound(SoundAssets.get().enemy_appear);
     }
 
     @Override
@@ -141,4 +143,11 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         int index = Math.min(Assets.get().enemyShoot.size - 1, (int) Math.floor((stateTime / PREPARE_SHOT_TIME) * Assets.get().enemyShoot.size));
         return sprite = Assets.get().enemyShoot.get(index);
     }*/
+
+    @Override
+    public void kill() {
+        if (dead) return;
+        dead = true;
+        SoundAssets.get().playRandomSound(SoundAssets.get().enemy_death);
+    }
 }

@@ -1,9 +1,7 @@
 package com.brusi.ggj2018.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.brusi.ggj2018.assets.Assets;
-import com.brusi.ggj2018.game.Utils;
+import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.utils.SpriteContainer;
 
@@ -47,5 +45,12 @@ public class Player extends Unit {
         if (wasLanded && !grounded) {
             animation.play(4, 0.2f);
         }
+    }
+
+    @Override
+    public void kill() {
+        if (dead == true) return;
+        dead = true;
+        SoundAssets.get().playRandomSound(SoundAssets.get().player_death);
     }
 }

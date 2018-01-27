@@ -1,7 +1,5 @@
 package com.brusi.ggj2018.assets;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -16,7 +14,9 @@ public class SoundAssets {
 	public Music music1A;
 	public Music music1B;
 
-	public Sound[] death;
+	public Sound[] player_death;
+	public Sound[] enemy_death;
+	public Sound[] enemy_appear;
 	public Sound[] teleport;
 
 	private SoundEvictingQueue currentlyPlaying = new SoundEvictingQueue(100);
@@ -31,11 +31,35 @@ public class SoundAssets {
 		music1A = newMusic("teleporting_1_a.mp3");
 		music1B = newMusic("teleporting_1_b.mp3");
 
-		death = new Sound[] {
+		player_death = new Sound[] {
 				newSound("teleporting_woman_dead_1.mp3"),
 				newSound("teleporting_woman_dead_2.mp3"),
 				newSound("teleporting_woman_dead_3.mp3"),
 				newSound("teleporting_woman_dead_4.mp3")
+		};
+
+		enemy_death = new Sound[] {
+				newSound("teleporting_enemy_dead_1.mp3"),
+				newSound("teleporting_enemy_dead_2.mp3"),
+				newSound("teleporting_enemy_dead_3.mp3"),
+				newSound("teleporting_enemy_dead_4.mp3"),
+				newSound("teleporting_enemy_dead_5.mp3"),
+				newSound("teleporting_enemy_dead_6.mp3"),
+				newSound("teleporting_enemy_dead_7.mp3"),
+				newSound("teleporting_enemy_dead_8.mp3"),
+				newSound("teleporting_enemy_dead_8.mp3")
+		};
+
+		enemy_appear = new Sound[] {
+				newSound("teleporting_enemy_pop_1.mp3"),
+				newSound("teleporting_enemy_pop_2.mp3"),
+				newSound("teleporting_enemy_pop_3.mp3"),
+				newSound("teleporting_enemy_pop_4.mp3"),
+				newSound("teleporting_enemy_pop_5.mp3"),
+				newSound("teleporting_enemy_pop_6.mp3"),
+				newSound("teleporting_enemy_pop_7.mp3"),
+				newSound("teleporting_enemy_pop_8.mp3"),
+				newSound("teleporting_enemy_pop_8.mp3")
 		};
 
 		teleport = new Sound[] {

@@ -44,7 +44,7 @@ public class Arrow extends Unit {
                     if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
                         //if (u == world.player) continue;
                         boolean wasDead = u.dead;
-                        u.dead = true;
+                        u.kill();
                         if (u == world.player) {
                             stuck = true;
                             if (!wasDead) {

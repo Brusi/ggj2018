@@ -182,7 +182,7 @@ public class World {
 
     private float getBulletTime(float deltaTime) {
 //        if (isDead()) {
-//            // Always bullet time on death!
+//            // Always bullet time on player_death!
 //            return 0.1f * deltaTime;
 //        }
 
