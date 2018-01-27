@@ -18,6 +18,7 @@ import sun.java2d.pipe.ShapeSpanIterator;
  */
 
 public class UiRenderer {
+    public static final float TEXT_SCALE = 0.8f;
     private static float UI_Y = WorldRenderer.FRUSTUM_HEIGHT / 2 - 38f;
     private static float UI_KILLS_X = WorldRenderer.FRUSTUM_WIDTH / 2 - 82f;
     private static float UI_TIME_X = WorldRenderer.FRUSTUM_WIDTH / 2 - 212f;
@@ -26,12 +27,15 @@ public class UiRenderer {
     private ShapeRenderer shapesRenderer = new ShapeRenderer();
     public OrthographicCamera cam = new OrthographicCamera(WorldRenderer.FRUSTUM_WIDTH, WorldRenderer.FRUSTUM_HEIGHT);
 
-    TextUi time = new TextUi(Assets.get().timeFont, UI_TIME_X, UI_Y - 15, Align.center);
-    TextUi kills = new TextUi(Assets.get().timeFont, UI_KILLS_X, UI_Y - 15, Align.center);
+    TextUi time = new TextUi(Assets.get().timeFont, UI_TIME_X - 50, UI_Y - 17, Align.left);
+    TextUi kills = new TextUi(Assets.get().timeFont, UI_KILLS_X, UI_Y - 17, Align.center);
 
     public UiRenderer() {
         batch.setProjectionMatrix(cam.projection);
         shapesRenderer.setProjectionMatrix(cam.projection);
+
+        time.setScale(TEXT_SCALE);
+        kills.setScale(TEXT_SCALE);
     }
 
     public void render(World world) {

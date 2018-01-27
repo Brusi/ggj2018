@@ -136,6 +136,19 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         world.addObject(arrow, 12);
     }
 
+    @Override
+    public void render(Batch batch) {
+        super.render(batch);
+        if (state == State.SHOOTING) {
+
+            Sprite arrow = Assets.get().arrow;
+            arrow.setRotation(0);
+            arrow.setFlip(mirror, false);
+            float arrow_x = position.x + (mirror ? -1 : 1) * stateTime * 10;
+            Utils.drawCenter(batch, arrow, arrow_x, position.y);
+        }
+    }
+
     /*@Override
     public void render(Batch batch) {
         sprite = computeSprite();

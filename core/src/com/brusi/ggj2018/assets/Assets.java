@@ -58,7 +58,7 @@ public class Assets {
     public void init() {
         bg = new Sprite(new Texture("objects/bg.jpg"));
         bg.setScale(1.12f);
-        title = new Sprite(new Texture("objects/opening.jpg"));
+        title = new Sprite(new Texture("objects/opening.png"));
         title_die = new Sprite(new Texture("objects/title_die.png"));
 
         TextureAtlas atlas = new TextureAtlas("objects/texture.txt");

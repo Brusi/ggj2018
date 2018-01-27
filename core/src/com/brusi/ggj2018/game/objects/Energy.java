@@ -97,7 +97,7 @@ public class Energy extends GameObject implements Updatable {
 
         //push to the batch
         Sprite sprite = (energy > ENERGY_LOW) ? Assets.get().mana : Assets.get().mana_low;
-        Utils.drawCenter(batch, sprite, X_POSITION, 0);
+        Utils.drawCenter(batch, sprite, X_POSITION, Y_POSITION);
         //end/flush your batch
         batch.end();
 
