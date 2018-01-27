@@ -39,6 +39,7 @@ public class Arrow extends Unit {
             for (Updatable obj : world.objectsToUpdate) {
                 if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
                     Unit u = (Unit) obj;
+                    if (!u.active) continue;
                     float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
                     if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
                         boolean wasDead = u.dead;
