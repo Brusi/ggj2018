@@ -20,7 +20,7 @@ public class Player extends Unit {
     public static float AFTER_DIE_TIME = 1;
 
     public Player(float x, float y) {
-        super(x, y, 40, 72, new SpriteContainer[]
+        super(x, y, 20, 72, new SpriteContainer[]
                 {
                         SpriteContainer.get(Assets.get().player_idle),
                         SpriteContainer.get(Assets.get().player_die),
