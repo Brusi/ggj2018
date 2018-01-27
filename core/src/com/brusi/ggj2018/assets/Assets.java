@@ -29,6 +29,8 @@ public class Assets {
 
     public Sprite bar;
     public Sprite bar_bg;
+    public Sprite kills_bg;
+    public Sprite time_bg;
     public Array<Sprite> teleport_effect;
 
     public Array<Sprite> teleport_particle;
@@ -80,6 +82,11 @@ public class Assets {
 
         bar = atlas.createSprite("bar");
         bar_bg = atlas.createSprite("bar_bg");
+
+        time_bg = atlas.createSprite("time");
+        kills_bg = atlas.createSprite("kills");
+
+
 
         teleport_effect = atlas.createSprites("port");
 

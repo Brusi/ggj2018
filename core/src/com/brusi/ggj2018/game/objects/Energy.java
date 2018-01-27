@@ -19,8 +19,8 @@ import com.brusi.ggj2018.utils.BatchUtils;
 
 public class Energy extends GameObject implements Updatable {
 
-    public static final float X_POSITION = -WorldRenderer.FRUSTUM_WIDTH / 2 + 50;
-    public static final float Y_POSITION = 0;
+    public static final float X_POSITION = -WorldRenderer.FRUSTUM_WIDTH / 2 + 32;
+    public static final float Y_POSITION = WorldRenderer.FRUSTUM_HEIGHT / 2 - 160;
     public float energy = 0.5f;
     public static float ENERGY_LOW = 0.3f;
 
