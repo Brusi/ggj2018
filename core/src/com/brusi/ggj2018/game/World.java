@@ -239,6 +239,7 @@ public class World {
             createTeleportParticles(player.position, 8, 0.5f, Assets.get().disappear_teleport_particle);
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
             //createTeleportParticles(player.position, 20, 1, Assets.get().teleport_particle);
+            SoundAssets.get().playRandomSound(SoundAssets.get().teleport);
             addObject(new SinglePlayParticle(Assets.get().teleport_effect, player.position.x, player.position.y - 10, 0.3f), 14);
         }
         if (controls.isTouched()) {

@@ -96,7 +96,8 @@ public class Energy extends GameObject implements Updatable {
         Gdx.gl.glDepthFunc(GL20.GL_EQUAL);
 
         //push to the batch
-         Utils.drawCenter(batch, Assets.get().mana, X_POSITION, 0);
+        Sprite sprite = (energy > ENERGY_LOW) ? Assets.get().mana : Assets.get().mana_low;
+        Utils.drawCenter(batch, sprite, X_POSITION, 0);
         //end/flush your batch
         batch.end();
 

@@ -16,7 +16,8 @@ public class SoundAssets {
 	public Music music1A;
 	public Music music1B;
 
-	public Sound playerDash;
+	public Sound[] death;
+	public Sound[] teleport;
 
 	private SoundEvictingQueue currentlyPlaying = new SoundEvictingQueue(100);
 
@@ -29,6 +30,19 @@ public class SoundAssets {
 	public void init() {
 		music1A = newMusic("teleporting_1_a.mp3");
 		music1B = newMusic("teleporting_1_b.mp3");
+
+		death = new Sound[] {
+				newSound("teleporting_woman_dead_1.mp3"),
+				newSound("teleporting_woman_dead_2.mp3"),
+				newSound("teleporting_woman_dead_3.mp3"),
+				newSound("teleporting_woman_dead_4.mp3")
+		};
+
+		teleport = new Sound[] {
+				newSound("tele_1.mp3"),
+				newSound("tele_2.mp3"),
+				newSound("tele_3.mp3")
+		};
 	}
 
 	public static SoundAssets get() {
