@@ -48,6 +48,8 @@ class Unit extends DynamicGameObject implements Renderable, Updatable, Animation
 
     @Override
     public void update(float deltaTime, World world) {
+        animation.update(deltaTime);
+        if (!active) return;
         grounded = false;
         float damping = velocity.y * getDamping();
         accel.y = getGAccel() + damping;
@@ -64,7 +66,7 @@ class Unit extends DynamicGameObject implements Renderable, Updatable, Animation
 
         checkDeath();
 
-        animation.update(deltaTime);
+
 
     }
 

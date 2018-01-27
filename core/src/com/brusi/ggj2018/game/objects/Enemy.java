@@ -7,20 +7,32 @@ import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 import com.brusi.ggj2018.game.graphic.Particle;
+import com.brusi.ggj2018.utils.Animation;
 import com.brusi.ggj2018.utils.SpriteContainer;
 
 /**
  * Created by pc on 1/26/2018.
  */
 
-public class Enemy extends Unit {
+public class Enemy extends Unit implements Animation.AnimationCallback {
 
     public static final float PREPARE_SHOT_TIME = 0.5f;
+    public static final float DIE_TIME = 0.25f;
+
+    @Override
+    public void onStateDone() {
+        if (state == State.DYING)
+        {
+            setState(State.AFTER_DYING);
+        }
+    }
 
     enum State {
         IDLE,
         SHOOTING,
-        JUMPING_IN
+        JUMPING_IN,
+        DYING,
+        AFTER_DYING
     }
 
     State state = State.JUMPING_IN;
@@ -31,7 +43,8 @@ public class Enemy extends Unit {
     public Enemy(float x, float y) {
         super(x, y, 40, 76, new SpriteContainer[] {
                 SpriteContainer.get(Assets.get().enemy),
-                SpriteContainer.get(Assets.get().enemy_shoot)
+                SpriteContainer.get(Assets.get().enemy_shoot),
+                SpriteContainer.get(Assets.get().enemy_die)
         });
         accel.y = BASE_ACCEL;
     }
@@ -53,13 +66,21 @@ public class Enemy extends Unit {
     @Override
     public void update(float deltaTime, World world) {
         stateTime += deltaTime;
-        if (dead) {
-            world.addBoneParticles(position.x, position.y);
-            active = false;
+        super.update(deltaTime, world);
+        if (state == State.AFTER_DYING) {
             world.removeObject(this);
             return;
         }
-        super.update(deltaTime, world);
+        if (dead) {
+            if (state != State.DYING) {
+                world.addBoneParticles(position.x, position.y);
+                active = false;
+                setState(State.DYING);
+                setPosition(position.x - (mirror ? 1 : -1) * 46, position.y);
+                animation.play(2, DIE_TIME);
+            }
+            return;
+        }
         if (grounded && state == State.JUMPING_IN) {
             setState(State.IDLE);
         }

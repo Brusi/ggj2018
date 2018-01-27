@@ -24,6 +24,11 @@ public class StaticGraphicObject implements Renderable, Updatable, Animation.Ani
         this.animation = new Animation(new SpriteContainer[] {SpriteContainer.get(sprite)}, this);
     }
 
+    public StaticGraphicObject(SpriteContainer[] sprites, float x, float y) {
+        this.position = new Vector2(x,y);
+        this.animation = new Animation(sprites, this);
+    }
+
     @Override
     public void render(Batch batch) {
         animation.render(batch);
