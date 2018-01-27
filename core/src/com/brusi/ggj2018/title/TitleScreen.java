@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.GameScreen;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.WorldRenderer;
@@ -37,12 +38,12 @@ public class TitleScreen extends ScreenAdapter implements Screen {
         Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         batch.begin();
-        Utils.drawCenter(batch, Assets.get().bg, 0, 0);
         Utils.drawCenter(batch, Assets.get().title, 0, 0);
         batch.end();
 
         if (Gdx.input.isTouched()) {
             ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            SoundAssets.get().playGameMusics();
         }
     }
 

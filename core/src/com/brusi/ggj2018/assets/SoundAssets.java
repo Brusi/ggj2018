@@ -13,13 +13,11 @@ import com.brusi.ggj2018.utils.SoundEvictingQueue;
 public class SoundAssets {
     public final float MUSIC_VOLUME = 0.6f;
 
-	public Music gameMusic;
-	public Music loopingGameMusic;
+	public Music music1A;
+	public Music music1B;
+	public Music music2A;
+	public Music music2B;
 
-	public Music shopMusic;
-	public Music menuMusic;
-
-	public Sound[] playerJump;
 	public Sound playerDash;
 
 	private SoundEvictingQueue currentlyPlaying = new SoundEvictingQueue(100);
@@ -29,6 +27,13 @@ public class SoundAssets {
 	private float pitch = 1f;
 	// This should be a reference to the asset manager owned by Assets.get().
 	private AssetManager assetManager;
+
+	public void init() {
+		music1A = newMusic("teleporting_1_a.mp3");
+		music1B = newMusic("teleporting_1_b.mp3");
+		music2A = newMusic("teleporting_2_a.mp3");
+		music2B = newMusic("teleporting_2_b.mp3");
+	}
 
 	public static SoundAssets get() {
 		return ((ggj2018) Gdx.app.getApplicationListener()).soundAssets;
@@ -107,10 +112,10 @@ public class SoundAssets {
 	}
 
 	private  void stopAllMusic() {
-		gameMusic.stop();
-        loopingGameMusic.stop();
-		menuMusic.stop();
-		shopMusic.stop();
+		music1A.stop();
+        music1B.stop();
+		music2A.stop();
+		music2B.stop();
 	}
 
 	public  void setPitch(float newPitch) {
@@ -152,6 +157,15 @@ public class SoundAssets {
 
 	public void startGameMusic() {
 //        startMusic(gameMusic);
+	}
+
+	public void playGameMusics() {
+		music1A.play();
+		music1B.play();
+		music2A.play();
+		music2A.setVolume(0);
+		music2B.play();
+		music2B.setVolume(0);
 	}
 
 //	public void pauseMusic() {
