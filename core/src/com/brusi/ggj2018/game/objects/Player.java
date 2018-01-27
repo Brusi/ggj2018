@@ -39,6 +39,7 @@ public class Player extends Unit {
     public void update(float deltaTime, World world) {
         boolean wasLanded = grounded;
         super.update(deltaTime, world);
+        if (dead) return;
         if (!wasLanded && grounded) {
             animation.play(3, 0.2f, 0, IDLE_TIME);
         }
