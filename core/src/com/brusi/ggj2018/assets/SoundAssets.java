@@ -18,6 +18,7 @@ public class SoundAssets {
 	public Sound[] enemy_death;
 	public Sound[] enemy_appear;
 	public Sound[] teleport;
+	public Sound[] enemy_shoot;
 
 	private SoundEvictingQueue currentlyPlaying = new SoundEvictingQueue(100);
 
@@ -66,6 +67,12 @@ public class SoundAssets {
 				newSound("tele_1.mp3"),
 				newSound("tele_2.mp3"),
 				newSound("tele_3.mp3")
+		};
+
+		enemy_shoot = new Sound[] {
+				newSound("shot_1.mp3"),
+				newSound("shot_2.mp3"),
+				newSound("shot_3.mp3")
 		};
 	}
 

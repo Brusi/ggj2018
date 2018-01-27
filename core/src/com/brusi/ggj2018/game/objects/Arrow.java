@@ -3,6 +3,7 @@ package com.brusi.ggj2018.game.objects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.Utils;
 import com.brusi.ggj2018.game.World;
 
@@ -19,6 +20,7 @@ public class Arrow extends Unit {
     public Arrow(float x, float y) {
         super(x, y, 48, 6, Assets.get().arrow);
         accel.y = BASE_ACCEL;
+        SoundAssets.get().playRandomSound(SoundAssets.get().enemy_shoot);
     }
 
     @Override
