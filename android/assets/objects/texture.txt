@@ -1,18 +1,18 @@
 texture.png
-size: 674, 254
+size: 246, 822
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arrow
   rotate: false
-  xy: 247, 235
+  xy: 1, 813
   size: 48, 6
   orig: 48, 6
   offset: 0, 0
   index: -1
 bad_guy
   rotate: false
-  xy: 368, 173
+  xy: 151, 451
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
@@ -40,239 +40,288 @@ bad_guy_death
   index: 3
 bad_guy_death
   rotate: false
-  xy: 141, 1
+  xy: 1, 235
   size: 138, 76
   orig: 138, 76
   offset: 0, 0
   index: 4
 bad_guy_death
   rotate: false
-  xy: 141, 79
+  xy: 1, 313
   size: 138, 76
   orig: 138, 76
   offset: 0, 0
   index: 5
 bad_guy_death
   rotate: false
-  xy: 141, 157
+  xy: 1, 391
   size: 138, 76
   orig: 138, 76
   offset: 0, 0
   index: 6
 bad_guy_draw
   rotate: false
-  xy: 416, 173
+  xy: 199, 451
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 1
 bad_guy_draw
   rotate: false
-  xy: 464, 173
+  xy: 151, 529
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 2
 bad_guy_draw
   rotate: false
-  xy: 512, 173
+  xy: 199, 529
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 3
 bad_guy_draw
   rotate: false
-  xy: 560, 173
+  xy: 151, 607
   size: 46, 76
   orig: 46, 76
   offset: 0, 0
   index: 4
 bar
   rotate: false
-  xy: 631, 1
+  xy: 199, 607
   size: 20, 100
   orig: 20, 100
   offset: 0, 0
   index: -1
 bar_bg
   rotate: false
-  xy: 653, 1
+  xy: 221, 607
   size: 20, 100
   orig: 20, 100
   offset: 0, 0
   index: -1
 bone
   rotate: false
-  xy: 281, 173
+  xy: 205, 709
   size: 19, 38
   orig: 19, 38
   offset: 0, 0
   index: 1
 bone
   rotate: false
-  xy: 297, 213
+  xy: 226, 709
   size: 15, 34
   orig: 15, 34
   offset: 0, 0
   index: 2
 hero
   rotate: false
-  xy: 608, 173
+  xy: 155, 709
   size: 48, 72
   orig: 48, 72
   offset: 0, 0
   index: -1
 hero_die
   rotate: false
-  xy: 281, 1
+  xy: 141, 1
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 1
 hero_die
   rotate: false
-  xy: 281, 87
+  xy: 1, 469
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 2
 hero_die
   rotate: false
-  xy: 331, 1
+  xy: 141, 87
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 3
 hero_die
   rotate: false
-  xy: 331, 87
+  xy: 191, 1
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 4
 hero_idle
   rotate: false
-  xy: 281, 1
+  xy: 141, 1
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 1
 hero_idle
   rotate: false
-  xy: 381, 1
+  xy: 1, 555
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 2
 hero_idle
   rotate: false
-  xy: 381, 87
+  xy: 51, 469
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 3
 hero_idle
   rotate: false
-  xy: 381, 1
+  xy: 1, 555
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 4
 hero_land
   rotate: false
-  xy: 431, 1
+  xy: 141, 173
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 1
 hero_land
   rotate: false
-  xy: 431, 87
+  xy: 191, 87
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 2
 hero_land
   rotate: false
-  xy: 481, 1
+  xy: 1, 641
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 3
 hero_land
   rotate: false
-  xy: 481, 87
+  xy: 51, 555
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 4
 hero_land
   rotate: false
-  xy: 281, 1
+  xy: 141, 1
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 5
 hero_outline
   rotate: false
-  xy: 314, 173
+  xy: 101, 727
   size: 52, 76
   orig: 52, 76
   offset: 0, 0
   index: -1
 hero_port
   rotate: false
-  xy: 531, 1
+  xy: 141, 259
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 1
 hero_port
   rotate: false
-  xy: 481, 87
+  xy: 51, 555
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 2
 hero_port
   rotate: false
-  xy: 531, 87
+  xy: 191, 173
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 3
 hero_port
   rotate: false
-  xy: 581, 1
+  xy: 1, 727
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 4
 hero_port
   rotate: false
-  xy: 581, 87
+  xy: 51, 641
   size: 48, 84
   orig: 48, 84
   offset: 0, 0
   index: 5
 plat
   rotate: false
-  xy: 1, 235
+  xy: 141, 431
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_left_end
   rotate: false
-  xy: 83, 235
+  xy: 155, 783
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
 plat_right_end
   rotate: false
-  xy: 165, 235
+  xy: 155, 803
   size: 80, 18
   orig: 80, 18
   offset: 0, 0
   index: -1
+port
+  rotate: false
+  xy: 141, 345
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 1
+port
+  rotate: false
+  xy: 191, 259
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 2
+port
+  rotate: false
+  xy: 51, 727
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 3
+port
+  rotate: false
+  xy: 191, 345
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 4
+port
+  rotate: false
+  xy: 101, 469
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 5
+port
+  rotate: false
+  xy: 101, 555
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 6
+port
+  rotate: false
+  xy: 101, 641
+  size: 48, 84
+  orig: 48, 84
+  offset: 0, 0
+  index: 7
