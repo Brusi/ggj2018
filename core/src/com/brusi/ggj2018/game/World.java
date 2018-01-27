@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.assets.Assets;
+import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
 import com.brusi.ggj2018.game.graphic.BoneParticle;
 import com.brusi.ggj2018.game.graphic.Particle;
@@ -30,6 +31,7 @@ import java.util.Iterator;
  */
 
 public class World {
+    public static final float BULLET_TIME_RATIO = 0.2f;
     private final EnemyGenerator enemyGenerator;
     public Player player = new Player(0, 0);
     public Energy energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
@@ -47,7 +49,7 @@ public class World {
 
     final EventQueue bulletTimeEvents = new EventQueue();
 
-    float gameTime = 0;
+    public float gameTime = 0;
 
     public World(Controls controls)
     {
@@ -144,7 +146,9 @@ public class World {
         bulletTimeEvents.update(deltaTime);
 
         deltaTime = getBulletTime(deltaTime);
-        gameTime += deltaTime;
+        if (!isDead()) {
+            gameTime += deltaTime;
+        }
         updateInput(deltaTime);
 
         //updateParticles(deltaTime);
@@ -170,14 +174,15 @@ public class World {
     }
 
     private float getBulletTime(float deltaTime) {
-        if (isDead()) {
-            // Always bullet time on death!
-            return 0.1f * deltaTime;
-        }
+//        if (isDead()) {
+//            // Always bullet time on death!
+//            return 0.1f * deltaTime;
+//        }
 
         if (playerTarget.on) {
-            bulletTimeRatio = (bulletTimeRatio * 0.8f + 0.2f * 0.2f);
+            bulletTimeRatio = BULLET_TIME_RATIO;
             if (bulletTimeEvents.isEmpty()) {
+                addBulletTimeEvents();
                 bulletTimeEvents.addEventFromNow(0.3f, new EventQueue.Event() {
                     @Override
                     public void invoke() {
