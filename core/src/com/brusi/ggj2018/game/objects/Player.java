@@ -54,4 +54,9 @@ public class Player extends Unit {
         dead = true;
         SoundAssets.get().playRandomSound(SoundAssets.get().player_death);
     }
+
+    @Override
+    protected float getDamping() {
+        return super.getDamping();
+    }
 }

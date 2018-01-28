@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.brusi.ggj2018.title.TitleScreen;
 import com.brusi.ggj2018.utils.Controls;
 import com.brusi.ggj2018.utils.EventQueue;
 import com.brusi.ggj2018.utils.TouchToPoint;
@@ -57,6 +58,9 @@ public class GameScreen extends ScreenAdapter implements Screen {
     private void updateCheats() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             restartGame();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            ((Game)Gdx.app.getApplicationListener()).setScreen(new TitleScreen());
         }
     }
 

@@ -4,32 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.graphic.ArrowOnionSkin;
-import com.brusi.ggj2018.game.graphic.BoneParticle;
 import com.brusi.ggj2018.game.graphic.FadeOutEffect;
-import com.brusi.ggj2018.game.graphic.Particle;
 import com.brusi.ggj2018.game.graphic.PlayerTarget;
 import com.brusi.ggj2018.game.graphic.SinglePlayParticle;
 import com.brusi.ggj2018.game.graphic.TeleportParticle;
 import com.brusi.ggj2018.game.objects.Arrow;
+import com.brusi.ggj2018.game.objects.Enemy;
 import com.brusi.ggj2018.game.objects.EnemyGenerator;
 import com.brusi.ggj2018.game.objects.Energy;
+import com.brusi.ggj2018.game.objects.GameObject;
 import com.brusi.ggj2018.game.objects.Platform;
 import com.brusi.ggj2018.game.objects.Player;
 import com.brusi.ggj2018.game.objects.Renderable;
 import com.brusi.ggj2018.game.objects.Updatable;
 import com.brusi.ggj2018.utils.Controls;
 import com.brusi.ggj2018.utils.EventQueue;
-import com.brusi.ggj2018.utils.SpriteContainer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by pc on 1/26/2018.
@@ -202,6 +199,8 @@ public class World {
         }
         updateInput(deltaTime);
 
+        updateEnemyCollision();
+
         //updateParticles(deltaTime);
 
         for (Updatable object : objectsToUpdate) {
@@ -216,6 +215,30 @@ public class World {
             removeObject(awaitingObject);
         }
         awaitingRemoveObjects.clear();
+    }
+
+    private void updateEnemyCollision() {
+        for (Enemy enemy1 : enemyGenerator.enemies) {
+            for (Enemy enemy2 : enemyGenerator.enemies) {
+                if (enemy1 == enemy2) {
+                    continue;
+                }
+                Gdx.app.log("debug", "Found enemy pair");
+                if (enemy1.bounds.overlaps(enemy2.bounds)) {
+                    float avgX = (enemy1.position.x + enemy2.position.x) * 0.5f;
+                    float avgVel = (enemy1.velocity.x + enemy2.velocity.x) * 0.5f;
+                    if (enemy1.position.x < enemy2.position.x) {
+                        enemy1.setPosition(avgX - enemy1.bounds.width / 2, enemy1.position.y);
+                        enemy2.setPosition(avgX + enemy2.bounds.width / 2, enemy2.position.y);
+                    } else {
+                        enemy1.setPosition(avgX + enemy1.bounds.width / 2, enemy1.position.y);
+                        enemy2.setPosition(avgX - enemy2.bounds.width / 2, enemy2.position.y);
+                    }
+                    enemy1.velocity.x = enemy2.velocity.x = avgVel;
+
+                }
+            }
+        }
     }
 
     private void updateCheats(float deltaTime) {
@@ -273,6 +296,7 @@ public class World {
         }
         energyLow = energy.energy < Energy.ENERGY_LOW;
         if ((energyLow && !startedBefore) || energy.empty) {
+            playerTarget.position.set(player.position);
             return;
         }
         energyLow = false;
@@ -308,11 +332,5 @@ public class World {
 
     public boolean isDead() {
         return player.dead;
-    }
-
-    public void addBoneParticles(float x, float y) {
-        for (int i=0; i < 5; i++) {
-            addObject(new BoneParticle(x, y));
-        }
     }
 }

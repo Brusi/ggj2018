@@ -21,7 +21,7 @@ public class EnemyGenerator implements Updatable {
     private float enemyNextTime;
     private Random rand = new Random();
 
-    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public EnemyGenerator(int maxEnemies, float enemyEveryTimeMin, float enemyEveryTimeMax, float firstEnemyTime) {
         this.maxEnemies = maxEnemies;

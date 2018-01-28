@@ -57,6 +57,7 @@ public class Assets {
 
     public void init() {
         bg = new Sprite(new Texture("objects/bg.jpg"));
+        setFilterNearest(bg);
         bg.setScale(1.12f);
         title = new Sprite(new Texture("objects/opening.png"));
         title_die = new Sprite(new Texture("objects/title_die.png"));
@@ -103,5 +104,16 @@ public class Assets {
 
     public void dispose() {
         // TODO: Dispose sprites??
+    }
+
+    public static void setFilterNearest(Array<Sprite> sprites) {
+        for (Sprite sprite : sprites) {
+            setFilterNearest(sprite);
+        }
+    }
+
+    public static void setFilterNearest(Sprite sprite) {
+        sprite.getTexture().setFilter(Texture.TextureFilter.Nearest,
+                Texture.TextureFilter.Nearest);
     }
 }

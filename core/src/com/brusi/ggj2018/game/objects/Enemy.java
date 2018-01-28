@@ -3,6 +3,7 @@ package com.brusi.ggj2018.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.assets.SoundAssets;
 import com.brusi.ggj2018.game.Utils;
@@ -42,6 +43,8 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
 
     public Platform targetPlatform = null;
 
+    private final Vector2 next_arrow_velocity = new Vector2();
+
     public Enemy(float x, float y) {
         super(x, y, 40, 76, new SpriteContainer[] {
                 SpriteContainer.get(Assets.get().enemy),
@@ -80,7 +83,6 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
                 if (!world.isDead()) {
                     ++world.killcount;
                 }
-                world.addBoneParticles(position.x, position.y);
                 active = false;
                 setState(State.DYING);
                 setPosition(position.x - (mirror ? 1 : -1) * 46, position.y);
@@ -94,9 +96,8 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         if (state == State.IDLE && stateTime >= nextShoot) {
             setState(State.SHOOTING);
             lookAtPlayer(world);
-            shootToX = world.player.position.x;
-            shootToY = world.player.position.y;
-
+            next_arrow_velocity.set(getArrowVelocity(world.player.position.x,
+                                                     world.player.position.y));
             animation.play(1, PREPARE_SHOT_TIME, 0, 1);
         }
         if (state == State.SHOOTING) {
@@ -118,21 +119,26 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
         this.stateTime = 0;
     }
 
-    private float shootToX;
-    private float shootToY;
+    private Vector2 getArrowVelocity(float shootToX, float shootToY) {
+        Vector2 arrow_vel = new Vector2();
+        arrow_vel.x = Math.signum(shootToX - position.x) * 300 + Utils.random2Range(30);
+
+        float t = Math.abs(shootToX - position.x) / 300;
+        float v = t == 0 ? 0 : (shootToY - position.y - t * t * (-10) / 2) / t;
+        v = Math.min(v, 300);
+        v = Math.max(v, -300);
+        arrow_vel.y = v + Utils.random2Range(15);
+
+        return arrow_vel;
+    }
 
     private void shoot(World world) {
         Gdx.app.log("DEBUG", "shoot(world);");
         //lookAtPlayer(world);
         Arrow arrow = new Arrow(position.x, position.y);
-        arrow.velocity.x = Math.signum(shootToX - position.x) * 300 + Utils.random2Range(30);
         arrow.mirror = mirror;
-        float t = Math.abs(shootToX - position.x) / 300;
-        float v = t == 0 ? 0 : (shootToY - position.y - t * t * (-10) / 2) / t;
-        v = Math.min(v, 300);
-        v = Math.max(v, -300);
-        arrow.velocity.y = v + Utils.random2Range(15);
         arrow.shooter = this;
+        arrow.velocity.set(next_arrow_velocity);
         world.addObject(arrow, 12);
     }
 
@@ -140,11 +146,12 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
     public void render(Batch batch) {
         super.render(batch);
         if (state == State.SHOOTING) {
-
             Sprite arrow = Assets.get().arrow;
-            arrow.setRotation(0);
             arrow.setFlip(mirror, false);
-            float arrow_x = position.x + (mirror ? -1 : 1) * stateTime * 10;
+            arrow.setAlpha(1);
+            arrow.setRotation((mirror ? 180 : 0) - (Utils.vec2deg(next_arrow_velocity.x, next_arrow_velocity.y) + 90));
+            float arrow_x = position.x;
+
             Utils.drawCenter(batch, arrow, arrow_x, position.y);
         }
     }

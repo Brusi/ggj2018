@@ -53,6 +53,7 @@ public class Arrow extends Unit {
                                 world.player.playDie();
                             }
                         } else {
+                            u.mirror = !this.mirror;
                             world.removeObject(this);
                         }
                         return;
