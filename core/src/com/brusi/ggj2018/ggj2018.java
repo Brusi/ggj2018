@@ -10,13 +10,19 @@ public class ggj2018 extends Game {
 	public Assets assets = new Assets();
 	public SoundAssets soundAssets = new SoundAssets();
 	public TouchToPoint touchToPoint;
+	float mouseAspect;
+
+	public ggj2018(float mouseAspect)
+	{
+		this.mouseAspect = mouseAspect;
+	}
 
 	@Override
 	public void create () {
 		assets.init();
 		soundAssets.init();
 		touchToPoint = TouchToPoint.create();
-		setScreen(new TitleScreen());
+		setScreen(new TitleScreen(mouseAspect));
 	}
 
 	@Override

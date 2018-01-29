@@ -24,6 +24,13 @@ public class TitleScreen extends ScreenAdapter implements Screen {
     private Batch batch;
     public OrthographicCamera cam;
 
+    private float mouseAspect;
+
+    public TitleScreen(float mouseAspect)
+    {
+        this.mouseAspect = mouseAspect;
+    }
+
 
     @Override
     public void show() {
@@ -47,7 +54,7 @@ public class TitleScreen extends ScreenAdapter implements Screen {
         batch.end();
 
         if (Gdx.input.isTouched()) {
-            ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen(mouseAspect));
             SoundAssets.get().playGameMusics();
         }
     }

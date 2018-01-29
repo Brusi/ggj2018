@@ -23,10 +23,16 @@ public class GameScreen extends ScreenAdapter implements Screen {
     final EventQueue events = new EventQueue();
     boolean canRestart;
 
+    private float mouseAspect;
+
+    public GameScreen(float mouseAspect) {
+        this.mouseAspect = mouseAspect;
+    }
+
     @Override
     public void show() {
         super.show();
-        controls = new Controls(TouchToPoint.get(), worldRenderer.cam);
+        controls = new Controls(TouchToPoint.get(), worldRenderer.cam, mouseAspect);
         world = new World(controls);
     }
 
@@ -60,12 +66,12 @@ public class GameScreen extends ScreenAdapter implements Screen {
             restartGame();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            ((Game)Gdx.app.getApplicationListener()).setScreen(new TitleScreen());
+            ((Game)Gdx.app.getApplicationListener()).setScreen(new TitleScreen(mouseAspect));
         }
     }
 
     private void restartGame() {
-        ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+        ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(mouseAspect));
     }
 
     @Override

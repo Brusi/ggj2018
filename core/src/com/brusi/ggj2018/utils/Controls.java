@@ -18,9 +18,12 @@ public class Controls {
     private final Vector2 diffPos = new Vector2();
     private boolean released;
 
-    public Controls(TouchToPoint ttp, Camera cam) {
+    private float mouseAspect;
+
+    public Controls(TouchToPoint ttp, Camera cam, float mouseAspect) {
         this.ttp = ttp;
         this.cam = cam;
+        this.mouseAspect = mouseAspect;
     }
 
     public void update() {
@@ -49,7 +52,7 @@ public class Controls {
     }
 
     public Vector2 getDiff() {
-        diffPos.set((basePos.x - touchPos.x) * 2, (basePos.y - touchPos.y) * 2);
+        diffPos.set((basePos.x - touchPos.x) * -mouseAspect, (basePos.y - touchPos.y) * -mouseAspect);
         return diffPos;
     }
 
