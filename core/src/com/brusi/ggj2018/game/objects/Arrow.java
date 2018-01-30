@@ -15,7 +15,8 @@ public class Arrow extends Unit {
 
     public Enemy shooter;
 
-    private boolean stuck = false;
+    // When set, arrow is "stuck" on player in this offset.
+    private Vector2 playerOffset;
 
     public Arrow(float x, float y) {
         super(x, y, 48, 6, Assets.get().arrow);
@@ -35,29 +36,36 @@ public class Arrow extends Unit {
 
     @Override
     public void update(float deltaTime, World world) {
-        if (!stuck) {
-            super.update(deltaTime, world);
-            Vector2 p = new Vector2(position.x + (mirror ? 1 : -1) * bounds.width / 2, position.y);
-            for (Updatable obj : world.objectsToUpdate) {
-                if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
-                    Unit u = (Unit) obj;
-                    if (!u.active) continue;
-                    float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
-                    if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
-                        //if (u == world.player) continue;
-                        boolean wasDead = u.dead;
+        if (playerOffset != null) {
+            position.set(world.player.position).add(playerOffset);
+            return;
+        }
+        super.update(deltaTime, world);
+        checkHit(world);
+    }
+
+    private void checkHit(World world) {
+        Vector2 p = new Vector2(position.x + (mirror ? 1 : -1) * bounds.width / 2, position.y);
+        for (Updatable obj : world.objectsToUpdate) {
+            if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
+                Unit u = (Unit) obj;
+                if (!u.active) continue;
+                float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
+                if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                    //if (u == world.player) continue;
+                    boolean wasDead = u.dead;
+                    if (u == world.player) {
                         u.kill();
-                        if (u == world.player) {
-                            stuck = true;
-                            if (!wasDead) {
-                                world.player.playDie();
-                            }
-                        } else {
-                            u.mirror = !this.mirror;
-                            world.removeObject(this);
+                        if (!wasDead) {
+                            world.player.playDie();
                         }
-                        return;
+                        this.playerOffset = position.cpy().sub(u.position);
+                    } else if (u.grounded) {
+                        u.kill();
+                        u.mirror = !this.mirror;
+                        world.removeObject(this);
                     }
+                    return;
                 }
             }
         }

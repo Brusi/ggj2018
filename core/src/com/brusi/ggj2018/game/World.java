@@ -220,7 +220,7 @@ public class World {
     private void updateEnemyCollision() {
         for (Enemy enemy1 : enemyGenerator.enemies) {
             for (Enemy enemy2 : enemyGenerator.enemies) {
-                if (enemy1 == enemy2) {
+                if (enemy1 == enemy2 || enemy1.targetPlatform != enemy2.targetPlatform) {
                     continue;
                 }
                 Gdx.app.log("debug", "Found enemy pair");
