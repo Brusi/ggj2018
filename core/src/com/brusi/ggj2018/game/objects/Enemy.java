@@ -21,6 +21,7 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
 
     public static final float PREPARE_SHOT_TIME = 0.5f;
     public static final float DIE_TIME = 0.25f;
+    public static final int ARROR_X_VEL = 230;
 
     @Override
     public void onStateDone() {
@@ -121,19 +122,18 @@ public class Enemy extends Unit implements Animation.AnimationCallback {
 
     private Vector2 getArrowVelocity(float shootToX, float shootToY) {
         Vector2 arrow_vel = new Vector2();
-        arrow_vel.x = Math.signum(shootToX - position.x) * 300 + Utils.random2Range(30);
+        arrow_vel.x = Math.signum(shootToX - position.x) * ARROR_X_VEL + Utils.random2Range(30);
 
-        float t = Math.abs(shootToX - position.x) / 300;
-        float v = t == 0 ? 0 : (shootToY - position.y - t * t * (-10) / 2) / t;
-        v = Math.min(v, 300);
-        v = Math.max(v, -300);
+        float t = Math.abs(shootToX - position.x) / ARROR_X_VEL;
+        float v = t == 0 ? 0 : (shootToY - position.y - t * t * (-9) / 2) / t;
+        v = Math.min(v, ARROR_X_VEL);
+        v = Math.max(v, -ARROR_X_VEL);
         arrow_vel.y = v + Utils.random2Range(15);
 
         return arrow_vel;
     }
 
     private void shoot(World world) {
-        Gdx.app.log("DEBUG", "shoot(world);");
         //lookAtPlayer(world);
         Arrow arrow = new Arrow(position.x, position.y);
         arrow.mirror = mirror;

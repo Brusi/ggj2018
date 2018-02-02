@@ -103,6 +103,10 @@ public class Utils {
         return (float) (rad / (2 * Math.PI) * 360f);
     }
 
+    public static float degToRad(float deg) {
+        return (float) (deg / 360f * 2 * Math.PI);
+    }
+
     public static float clamp01(float val) {
         return Math.max(0, Math.min(1, val));
     }

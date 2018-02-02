@@ -43,7 +43,6 @@ public class World {
     protected ArrayList<Renderable>[] objectsToRender;
     private HashMap<Object, Integer> objectsToLayer = new HashMap<Object, Integer>();
     public ArrayList<Platform> platforms = new ArrayList<Platform>();
-    //public ArrayList<Particle> particles = new ArrayList<Particle>();
 
     Controls controls;
 
@@ -61,21 +60,18 @@ public class World {
             objectsToRender[i] = new ArrayList<Renderable>();
         }
         this.controls = controls;
-        enemyGenerator = new EnemyGenerator(9, 1, 6, 2);
+        enemyGenerator = new EnemyGenerator(9, 1, 5, 2);
         addObject(enemyGenerator);
         addObject(playerTarget);
-        int level = Utils.randomInt(3);
-        if (level == 0)
-        {
+        int level = Utils.randomInt(4);
+        if (level == 0) {
             createPlatforms();
-        }
-        else if (level == 1)
-        {
+        } else if (level == 1) {
             createPlatforms2();
-        }
-        else
-        {
+        } else if (level == 2){
             createPlatforms3();
+        } else {
+            createPlatforms4();
         }
         addObject(player);
         energy = new Energy(-WorldRenderer.FRUSTUM_WIDTH / 2 + 30, 0, 20, 250);
@@ -125,7 +121,17 @@ public class World {
         addPlatform(-90, -270, 2);
         addPlatform(280, 40, 2);
         addPlatform(230, 120, 2);
+    }
 
+    private void createPlatforms4()
+    {
+        addPlatform(0, 160, 9);
+        for (int i = 4; i < 7; i++) {
+            addPlatform(i * 60, 80 * (i - 5), 3);
+            addPlatform(i * -60, 80 * (i - 5), 3);
+        }
+        addPlatform(0, 80 * (3 - 5), 7);
+        addPlatform(0, 80 * (2 - 5), 6);
     }
 
     private Platform addPlatform(float x, float y, int width) {
@@ -223,7 +229,6 @@ public class World {
                 if (enemy1 == enemy2 || enemy1.targetPlatform != enemy2.targetPlatform) {
                     continue;
                 }
-                Gdx.app.log("debug", "Found enemy pair");
                 if (enemy1.bounds.overlaps(enemy2.bounds)) {
                     float avgX = (enemy1.position.x + enemy2.position.x) * 0.5f;
                     float avgVel = (enemy1.velocity.x + enemy2.velocity.x) * 0.5f;
@@ -242,9 +247,10 @@ public class World {
     }
 
     private void updateCheats(float deltaTime) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            enemyGenerator.generateEnemy(this);
-        }
+        // Cheats are disabled for production!
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+//            enemyGenerator.generateEnemy(this);
+//        }
     }
 
     private float getBulletTime(float deltaTime) {
@@ -286,7 +292,7 @@ public class World {
     private void updateInput(float deltaTime) {
         boolean startedBefore = playerTarget.on;
         playerTarget.on = false;
-        if (!player.grounded || isDead()) {
+        if (/*!player.grounded || */isDead()) {
             // Ignore input if player is not on the ground.
             return;
         }
@@ -309,6 +315,7 @@ public class World {
             //createTeleportParticles(player.position, 8, 0.5f, Assets.get().disappear_teleport_particle);
             addObject(new FadeOutEffect(player, Color.BLACK, 0.3f), 9);
             player.setPosition(player.position.x + diff.x, player.position.y + diff.y);
+            player.velocity.setZero();
             //createTeleportParticles(player.position, 20, 1, Assets.get().teleport_particle);
             SoundAssets.get().playRandomSound(SoundAssets.get().teleport);
             addObject(new SinglePlayParticle(Assets.get().teleport_effect, player.position.x, player.position.y - 10, 0.3f), 14);
@@ -320,13 +327,6 @@ public class World {
             playerTarget.position.set(player.position.x + diff.x, player.position.y + diff.y);
             player.mirror = diff.x < 0;
             playerTarget.mirror = player.mirror;
-        }
-    }
-
-    private void createTeleportParticles(Vector2 position, int number, float time, Array<Sprite> sprites) {
-        Gdx.app.log("DEBUG", "Add teleport particles.");
-        for (int i=0; i < number; i++) {
-            addObject(new TeleportParticle(position.x, position.y, time, sprites));
         }
     }
 

@@ -94,7 +94,7 @@ public class SoundAssets {
 		if (!ENABLE_OVERALL_SOUNDS) return 0;
 
 		long id = sound.play(volume);
-		sound.setPitch(id, pitch);
+		sound.setPitch(id, pitch * this.pitch);
 		currentlyPlaying.add(sound, id, pitch);
 		return id;
 	}

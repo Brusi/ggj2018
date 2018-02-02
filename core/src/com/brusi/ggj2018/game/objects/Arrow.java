@@ -1,6 +1,5 @@
 package com.brusi.ggj2018.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.brusi.ggj2018.assets.Assets;
 import com.brusi.ggj2018.assets.SoundAssets;
@@ -17,6 +16,7 @@ public class Arrow extends Unit {
 
     // When set, arrow is "stuck" on player in this offset.
     private Vector2 playerOffset;
+    private final Vector2 hotSpot = new Vector2();
 
     public Arrow(float x, float y) {
         super(x, y, 48, 6, Assets.get().arrow);
@@ -45,13 +45,13 @@ public class Arrow extends Unit {
     }
 
     private void checkHit(World world) {
-        Vector2 p = new Vector2(position.x + (mirror ? 1 : -1) * bounds.width / 2, position.y);
+        updateHotSpot();
         for (Updatable obj : world.objectsToUpdate) {
             if (obj instanceof Unit && !(obj instanceof Arrow) && obj != shooter) {
                 Unit u = (Unit) obj;
                 if (!u.active) continue;
                 float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
-                if (Math.abs(u.position.x - p.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - p.y) < 0.85 * (u.bounds.height / 2)) {
+                if (Math.abs(u.position.x - hotSpot.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - hotSpot.y) < 0.85 * (u.bounds.height / 2)) {
                     //if (u == world.player) continue;
                     boolean wasDead = u.dead;
                     if (u == world.player) {
@@ -69,6 +69,13 @@ public class Arrow extends Unit {
                 }
             }
         }
+    }
+
+    private void updateHotSpot() {
+        float half_length = bounds.width / 2;
+        float rotation_rad = Utils.degToRad(getRotation());
+        hotSpot.set(position.x + (mirror ? 1 : -1) * half_length * (float) Math.cos(rotation_rad),
+                    position.y + (mirror ? 1 : -1) * half_length * (float)Math.sin(rotation_rad));
     }
 
     @Override

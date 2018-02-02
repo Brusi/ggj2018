@@ -49,7 +49,7 @@ public class GameScreen extends ScreenAdapter implements Screen {
 
     private void updateDeath() {
         if (world.isDead() && events.isEmpty() && !canRestart) {
-            events.addEventFromNow(0.3f, new EventQueue.Event() {
+            events.addEventFromNow(1f, new EventQueue.Event() {
                 @Override
                 public void invoke() {
                     canRestart = true;
