@@ -53,21 +53,28 @@ public class Arrow extends Unit {
                 float radius = Math.min(u.bounds.width / 2, u.bounds.height / 2) * 0.85f;
                 if (Math.abs(u.position.x - hotSpot.x) < 0.85 * (u.bounds.width / 2) && Math.abs(u.position.y - hotSpot.y) < 0.85 * (u.bounds.height / 2)) {
                     //if (u == world.player) continue;
-                    boolean wasDead = u.dead;
                     if (u == world.player) {
-                        u.kill();
-                        if (!wasDead) {
-                            world.player.playDie();
-                        }
+                        killPlayer(world);
                         this.playerOffset = position.cpy().sub(u.position);
                     } else if (u.grounded) {
                         u.kill();
                         u.mirror = !this.mirror;
+                        if (u.timeAlive > 1 && u.playerHidesInside(world.player)) {
+                            killPlayer(world);
+                        }
                         world.removeObject(this);
                     }
                     return;
                 }
             }
+        }
+    }
+
+    private void killPlayer(World world) {
+        boolean wasDead = world.player.dead;
+        world.player.kill();
+        if (!wasDead) {
+            world.player.playDie();
         }
     }
 

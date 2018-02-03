@@ -24,6 +24,7 @@ public class Unit extends DynamicGameObject implements Renderable, Updatable, An
 
     public Animation animation;
     public boolean mirror = false;
+    public float timeAlive = 0;
 
     public Unit(float x, float y, float width, float height, SpriteContainer[] states) {
         super(x, y, width, height);
@@ -50,6 +51,7 @@ public class Unit extends DynamicGameObject implements Renderable, Updatable, An
     public void update(float deltaTime, World world) {
         animation.update(deltaTime);
         if (!active) return;
+        timeAlive += deltaTime;
         grounded = false;
         float damping = velocity.y * getDamping();
         accel.y = getGAccel() + damping;
@@ -102,5 +104,9 @@ public class Unit extends DynamicGameObject implements Renderable, Updatable, An
 
     public void kill() {
         dead = true;
+    }
+
+    public boolean playerHidesInside(Player player) {
+        return bounds.contains(player.position);
     }
 }

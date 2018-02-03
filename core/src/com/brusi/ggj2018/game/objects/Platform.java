@@ -31,7 +31,8 @@ public class Platform extends GameObject implements Renderable {
     }
 
     public boolean collide(GameObject object) {
-        return object.position.x >= this.bounds.getX() &&  object.position.x <= this.bounds.getX() + this.bounds.getWidth() &&
+        return ((object.position.x + object.bounds.width / 3 >= this.bounds.getX() &&  object.position.x + object.bounds.width / 3 <= this.bounds.getX() + this.bounds.getWidth()) ||
+                (object.position.x - object.bounds.width / 3 >= this.bounds.getX() &&  object.position.x - object.bounds.width / 3 <= this.bounds.getX() + this.bounds.getWidth())) &&
                 object.bounds.getY() <= this.bounds.getY() + this.bounds.getHeight() && object.bounds.getY() >= this.bounds.getY() + this.bounds.getHeight() - 20;
     }
 }

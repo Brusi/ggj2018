@@ -308,7 +308,7 @@ public class World {
         energyLow = false;
         if (controls.getReleased() && startedBefore) {
             Vector2 diff = controls.getDiff();
-            if (diff.len() < 30) {
+            if (diff.len() < 15) {
                 // Teleport is too short!
                 return;
             }
